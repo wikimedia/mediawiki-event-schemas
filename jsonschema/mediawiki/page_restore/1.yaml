@@ -1,5 +1,5 @@
-title: MediaWiki Revision Visibility Set
-description: Represents a MW Revision Visibility Set event
+title: MediaWiki Page Restore
+description: Represents a MW Page Restore Edit event
 $schema: http://json-schema.org/draft-04/schema#
 type: object
 properties:
@@ -10,12 +10,13 @@ properties:
       topic:
         type: string
         description: the queue topic name this message belongs to
-      schema:
+      schema_uri:
         type: string
-        description: The name of this schema
-      revision:
-        type: integer
-        description: The revision of this schema
+        description: >
+          The URI identifying the jsonschema for this event.  This may be just
+          a short uri containing only the name and revision at the end of the
+          URI path.  e.g. schema_name/12345 is acceptable.  This field
+          is not required.
       uri:
         type: string
         format: uri
@@ -42,31 +43,29 @@ properties:
       - dt
       - domain
   # event-specific fields
-  revision_id:
+  title:
+    type: string
+    description: the title of the page
+  new_page_id:
     type: integer
     minimum: 1
-    description: the revision ID the visibility of which is being changed
-  hidden:
-    type: object
-    properties:
-      sha1:
-        type: boolean
-        description: "whether the SHA1 of the revision's text is available"
-      text:
-        type: boolean
-        description: "whether the revision's text is available"
-      user:
-        type: boolean
-        description: "whether the author of the revision's text is available"
-      comment:
-        type: boolean
-        description: whether the comment of the revision is available
+    description: the new page ID of the restored page
+  old_page_id:
+    type: integer
+    minimum: 1
+    description: the old page ID of the restored page
+  namespace:
+    type: integer
+    description: the namespace ID the page belongs to
   user_id:
     type: integer
-    description: the user that performed the visibility change
+    description: the user that performed the restoration
   user_text:
     type: string
     description: the text representation of the user
+  summary:
+    type: string
+    description: the summary comment left by the user
 required:
   - meta
-  - revision_id
+  - title

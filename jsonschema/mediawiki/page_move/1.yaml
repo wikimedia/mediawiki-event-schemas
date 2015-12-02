@@ -10,12 +10,13 @@ properties:
       topic:
         type: string
         description: the queue topic name this message belongs to
-      schema:
+      schema_uri:
         type: string
-        description: The name of this schema
-      revision:
-        type: integer
-        description: The revision of this schema
+        description: >
+          The URI identifying the jsonschema for this event.  This may be just
+          a short uri containing only the name and revision at the end of the
+          URI path.  e.g. schema_name/12345 is acceptable.  This field
+          is not required.
       uri:
         type: string
         format: uri

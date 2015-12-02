@@ -1,5 +1,5 @@
-title: MediaWiki Page Delete
-description: Represents a MW Page Delete event
+title: MediaWiki Page Edit
+description: Represents a MW Page Edit event
 $schema: http://json-schema.org/draft-04/schema#
 type: object
 properties:
@@ -10,12 +10,13 @@ properties:
       topic:
         type: string
         description: the queue topic name this message belongs to
-      schema:
+      schema_uri:
         type: string
-        description: The name of this schema
-      revision:
-        type: integer
-        description: The revision of this schema
+        description: >
+          The URI identifying the jsonschema for this event.  This may be just
+          a short uri containing only the name and revision at the end of the
+          URI path.  e.g. schema_name/12345 is acceptable.  This field
+          is not required.
       uri:
         type: string
         format: uri
@@ -44,14 +45,29 @@ properties:
   # event-specific fields
   title:
     type: string
-    description: the title of the page
+    description: the title of the edited page
   page_id:
     type: integer
     minimum: 1
-    description: the page ID of the deleted page
+    description: the page ID of the edited page
+  namespace:
+    type: integer
+    description: the namespace ID the page belongs to
+  revision_id:
+    type: integer
+    minimum: 1
+    description: the revision ID created by this edit event
+  parent_revision_id:
+    type: integer
+    minimum: 1
+    description: the revision ID that the edit is based on
+  save_dt:
+    type: string
+    format: date-time
+    description: the time stamp of the revision in ISO8601 format
   user_id:
     type: integer
-    description: the user that performed the delete
+    description: the user that performed the edit
   user_text:
     type: string
     description: the text representation of the user
@@ -61,3 +77,5 @@ properties:
 required:
   - meta
   - title
+  - revision_id
+  - save_dt
