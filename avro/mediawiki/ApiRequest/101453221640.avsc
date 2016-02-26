@@ -1,0 +1,56 @@
+{
+  "type": "record",
+  "name": "ApiRequest",
+  "namespace": "org.wikimedia.analytics.schemas",
+  "doc": "A single request to the MediaWiki Action API (api.php)",
+  "fields": [
+    {
+      "name": "ts",
+      "doc": "The timestamp, in unix time, that the request was made",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "name": "ip",
+      "doc": "The requesting IP address (either ipv4 or ipv6) in string notation",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "userAgent",
+      "doc": "The HTTP User-Agent header prefixed with the Api-user-agent header if present",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "wiki",
+      "doc": "The wiki making this request, such as dewiki or enwiktionary",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "timeSpentBackend",
+      "doc": "Elapsed milliseconds to process request as measured by MediaWiki",
+      "type": "int",
+      "default": -1
+    },
+    {
+      "name": "hadError",
+      "doc": "Were errors encountered when processing this request?",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "errorCodes",
+      "doc": "List of error codes for any errors encountered",
+      "type": {"type": "array", "items": "string"},
+      "default": []
+    },
+    {
+      "name": "params",
+      "doc": "Request parameters",
+      "type": {"type": "map", "values": "string"},
+      "default": {}
+    }
+  ]
+}
