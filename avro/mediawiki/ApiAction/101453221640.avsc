@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "ApiRequest",
+  "name": "ApiAction",
   "namespace": "org.wikimedia.analytics.schemas",
   "doc": "A single request to the MediaWiki Action API (api.php)",
   "fields": [
