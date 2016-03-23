@@ -1,0 +1,198 @@
+{
+  "type" : "record",
+  "name" : "CirrusSearchRequestSet",
+  "namespace" : "org.wikimedia.analytics.schemas",
+  "doc" : "A set of requests made by CirrusSearch to the elasticsearch user for a single php execution context",
+  "fields" : [ {
+    "name" : "id",
+    "type" : "string",
+    "doc" : "UUIDv4 id of this request set",
+    "default" : ""
+  }, {
+    "name" : "ts",
+    "type" : "int",
+    "doc" : "The timestamp, in unix time, that the request was made",
+    "default" : 0
+  }, {
+    "name" : "wikiId",
+    "type" : "string",
+    "doc" : "The wiki making this request, such as dewiki or enwiktionary",
+    "default" : ""
+  }, {
+    "name" : "source",
+    "type" : "string",
+    "doc" : "Where the request is coming from. Typically: web, api or cli",
+    "default" : ""
+  }, {
+    "name" : "identity",
+    "type" : "string",
+    "doc" : "A hash identifying the requestor. Includes the IP address and User Agent when available",
+    "default" : ""
+  }, {
+    "name" : "ip",
+    "type" : "string",
+    "doc" : "The IP address (either ipv4 or ipv6) in string notation",
+    "default" : ""
+  }, {
+    "name" : "userAgent",
+    "type" : "string",
+    "doc" : "The HTTP User-Agent header, or null if not-applicable",
+    "default" : ""
+  }, {
+    "name" : "backendUserTests",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    },
+    "doc" : "List of backend tests the requests are participating in",
+    "default" : [ ]
+  }, {
+    "name" : "tookMs",
+    "type" : "float",
+    "doc" : "Total time of the php request in milliseconds",
+    "default" : -1
+  }, {
+    "name" : "payload",
+    "type" : {
+      "type" : "map",
+      "values" : "string"
+    },
+    "doc" : "General purpose data for this request set",
+    "default" : { }
+  }, {
+    "name" : "hits",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "CirrusSearchHit",
+        "doc" : "An individual search result",
+        "fields" : [ {
+          "name" : "title",
+          "type" : "string",
+          "doc" : "MediaWiki page title of the result",
+          "default" : ""
+        }, {
+          "name" : "index",
+          "type" : "string",
+          "doc" : "ElasticSearch index this result came from",
+          "default" : ""
+        }, {
+          "name" : "pageId",
+          "type" : "int",
+          "default" : -1
+        }, {
+          "name" : "score",
+          "type" : "float",
+          "doc" : "Score from ElasticSearch for this result",
+          "default" : -1
+        }, {
+          "name" : "profileName",
+          "type" : "string",
+          "doc" : "The profile name for comp_suggest queries",
+          "default" : ""
+        } ]
+      }
+    },
+    "doc" : "Final set of result pages returned for the php request.",
+    "default" : [ ]
+  }, {
+    "name" : "requests",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "CirrusSearchRequest",
+        "doc" : "An individual request made between MediaWiki and ElasticSearch",
+        "fields" : [ {
+          "name" : "query",
+          "type" : "string",
+          "doc" : "The actual search request",
+          "default" : ""
+        }, {
+          "name" : "queryType",
+          "type" : "string",
+          "default" : ""
+        }, {
+          "name" : "indices",
+          "type" : {
+            "type" : "array",
+            "items" : "string"
+          },
+          "default" : [ ]
+        }, {
+          "name" : "tookMs",
+          "type" : "int",
+          "doc" : "The number of milliseconds between passing the query to the client library and getting the response back in the application",
+          "default" : -1
+        }, {
+          "name" : "elasticTookMs",
+          "type" : "int",
+          "doc" : "The number of milliseconds the query took, according to the elasticsearch response",
+          "default" : -1
+        }, {
+          "name" : "limit",
+          "type" : "int",
+          "doc" : "The maximum number of results requested by the application",
+          "default" : -1
+        }, {
+          "name" : "hitsTotal",
+          "type" : "int",
+          "doc" : "The approximate total number of documents matching the query",
+          "default" : -1
+        }, {
+          "name" : "hitsReturned",
+          "type" : "int",
+          "doc" : "The number of results returned to the application",
+          "default" : -1
+        }, {
+          "name" : "hitsOffset",
+          "type" : "int",
+          "doc" : "The offset of the query",
+          "default" : -1
+        }, {
+          "name" : "namespaces",
+          "type" : {
+            "type" : "array",
+            "items" : "int"
+          },
+          "doc" : "Each element is a mediawiki namespace id that was searched",
+          "default" : [ ]
+        }, {
+          "name" : "suggestion",
+          "type" : "string",
+          "doc" : "The suggestion generated by elasticsearch",
+          "default" : ""
+        }, {
+          "name" : "suggestionRequested",
+          "type" : "boolean",
+          "doc" : "If a suggestion was requested from elasticsearch",
+          "default" : false
+        }, {
+          "name" : "maxScore",
+          "type" : "float",
+          "doc" : "Max score returned by elasticsearch, this is the best score in the\n     * results before we apply rescore queries.  Unfortunaltely we do not know if\n     * it's part or the result but it can give a rough idea of the score range\n     * before we apply the rescore queries.",
+          "default" : -1.0
+        }, {
+          "name" : "payload",
+          "type" : {
+            "type" : "map",
+            "values" : "string"
+          },
+          "doc" : "General purpose data for this request",
+          "default" : { }
+        }, {
+          "name" : "hits",
+          "type" : {
+            "type" : "array",
+            "items" : "CirrusSearchHit"
+          },
+          "doc" : "Final set of result pages returned for the ElasticSearch request",
+          "default" : [ ]
+        } ]
+      }
+    },
+    "doc" : "A list of requests made between mediawiki and elasticsearch in a single execution context",
+    "default" : [ ]
+  } ]
+}
