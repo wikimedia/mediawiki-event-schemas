@@ -1,0 +1,28 @@
+
+#
+# Topic config file for eventbus produce service.
+# This file specifies which schemas are allowed to be produced
+# to topics.  Learn more at https://wikitech.wikimedia.org/wiki/EventBus
+#
+# Note: This topic config used to be in WMF's operations/puppet repo.
+# It may find a better home one day, but keeping it in this repository
+# allows it to be used by services outside of WMF production.
+#
+
+mediawiki.page_delete:
+  schema_name: page_delete
+
+mediawiki.page_move:
+  schema_name: page_move
+
+mediawiki.page_restore:
+  schema_name: page_restore
+
+mediawiki.revision_visibility_set:
+  schema_name: revision_visibility_set
+
+mediawiki.revision_create:
+  schema_name: revision_create
+
+resource_change:
+  schema_name: resource_change
