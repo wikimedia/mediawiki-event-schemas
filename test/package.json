@@ -1,0 +1,25 @@
+{
+  "name": "event-schemas",
+  "version": "0.0.0",
+  "description": "Schemas for MediaWiki event streams.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha jsonschema"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gerrit.wikimedia.org/r/mediawiki/event-schemas"
+  },
+  "keywords": [
+    "mediawiki",
+    "event-schemas"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "preq": "^0.4.9",
+    "ajv": "^4.0.1",
+    "js-yaml": "^3.0.6"
+  }
+}
