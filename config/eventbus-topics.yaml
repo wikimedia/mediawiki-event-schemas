@@ -29,3 +29,25 @@ mediawiki.user_block:
 
 resource_change:
   schema_name: resource_change
+
+# Change propagation retry queues
+change-prop.retry.mediawiki.page_delete:
+  schema_name: retry
+
+change-prop.retry.mediawiki.page_move:
+  schema_name: retry
+
+change-prop.retry.mediawiki.page_restore:
+  schema_name: retry
+
+change-prop.retry.mediawiki.revision_visibility_set:
+  schema_name: retry
+
+change-prop.retry.mediawiki.revision_create:
+  schema_name: retry
+
+change-prop.retry.mediawiki.user_block:
+  schema_name: retry
+
+change-prop.retry.resource_change:
+  schema_name: retry
