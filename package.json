@@ -4,7 +4,7 @@
   "description": "Schemas for MediaWiki event streams.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha jsonschema"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
