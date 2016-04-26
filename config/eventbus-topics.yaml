@@ -51,3 +51,10 @@ change-prop.retry.mediawiki.user_block:
 
 change-prop.retry.resource_change:
   schema_name: retry
+
+## Continuation topics for backlinks processing in change propagation service
+change-prop.backlinks.continue:
+  schema_name: continue
+
+change-prop.retry.change-prop.backlinks.continue:
+  schema_name: retry
