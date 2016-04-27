@@ -50,5 +50,6 @@ properties:
     type: object
     description: continuation token
 required:
+  - meta
   - original_event
   - continue
