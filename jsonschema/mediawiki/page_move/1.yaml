@@ -45,14 +45,20 @@ properties:
   # event-specific fields
   new_title:
     type: string
-    description: the new title of the page
+    description: the new normalized title of the page
   old_title:
     type: string
-    description: the old title of the page
+    description: the old normalized title of the page
   page_id:
     type: integer
     minimum: 1
     description: the page ID of the moved page
+  new_namespace:
+    type: integer
+    description: the new namespace of the page
+  old_namespace:
+    type: integer
+    description: the old namespace of the page
   old_revision_id:
     type: integer
     minimum: 1
@@ -62,11 +68,17 @@ properties:
     minimum: 1
     description: the first revision ID after the move
   user_id:
-    type: integer
+    type:
+      - integer
+      - null
     description: the user that performed the move
   user_text:
     type: string
     description: the text representation of the user
+  comment:
+    type: string
+    description: the comment left by the user
+  # Kept for easy transition - To be removed in favour of comment
   summary:
     type: string
     description: the summary comment left by the user
@@ -74,4 +86,8 @@ required:
   - meta
   - new_title
   - old_title
+  - new_namespace
+  - old_namespace
   - page_id
+  - user_id
+  - user_text

@@ -45,20 +45,31 @@ properties:
   # event-specific fields
   title:
     type: string
-    description: the title of the page
+    description: the normalized title of the deleted page
   page_id:
     type: integer
     minimum: 1
     description: the page ID of the deleted page
-  user_id:
+  namespace:
     type: integer
-    description: the user that performed the delete
+    description: the namespace ID of the deleted page
+  user_id:
+    type:
+      - integer
+      - null
+    description: the user that performed the deletion
   user_text:
     type: string
     description: the text representation of the user
+  comment:
+    type: string
+    description: the comment left by the user
+  # Kept for easy transition - To be removed in favour of comment
   summary:
     type: string
     description: the summary comment left by the user
 required:
   - meta
-  - title
+  - page_id
+  - user_id
+  - user_text

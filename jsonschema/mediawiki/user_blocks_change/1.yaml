@@ -1,5 +1,5 @@
-title: MediaWiki User Block
-description: Represents a MW User Block event
+title: MediaWiki User Blocks Change
+description: Represents a MW User Blocks Change event
 $schema: http://json-schema.org/draft-04/schema#
 type: object
 properties:
@@ -43,6 +43,7 @@ properties:
       - dt
       - domain
   # event specific fields
+  # Kept for easy transition - To be removed in favour of user_text_blocked
   user_blocked:
     type: string
     description: the user name or IP address being blocked
@@ -50,6 +51,7 @@ properties:
   expiry:
     type: string
     description: the timestamp the block expires
+  # Kept for easy transition - To be removed in favour of new/old blocks
   blocks:
     type: object
     properties:
@@ -65,16 +67,62 @@ properties:
       account_create:
         type: boolean
         description: whether to block account creation from the user or IP
+  # Kept for easy transition - To be removed in favour of comment
   reason:
     type: string
-    description: the reason for creating the block
-  user_id:
+    description: the reason for creating the blocks change
+  user_id_blocks_changed:
     type: integer
-    description: the user that performed the block
+    description: the user for which blocks change
+  user_text_blocks_changed:
+    type: string
+    description: the text representation of the user for which blocks change
+  new_blocks:
+    type: object
+    properties:
+      name:
+        type: boolean
+        description: whether the name or IP should be suppressed (hidden)
+      email:
+        type: boolean
+        description: whether email sending should be blocked
+      user_talk:
+        type: boolean
+        description: whether the user should be prevented from editing their own talk page
+      account_create:
+        type: boolean
+        description: whether to block account creation from the user or IP
+  old_blocks:
+    type: object
+    properties:
+      name:
+        type: boolean
+        description: whether the name or IP should be suppressed (hidden)
+      email:
+        type: boolean
+        description: whether email sending should be blocked
+      user_talk:
+        type: boolean
+        description: whether the user should be prevented from editing their own talk page
+      account_create:
+        type: boolean
+        description: whether to block account creation from the user or IP
+  user_id:
+    type:
+      - integer
+      - null
+    description: the user that performed the blocks change
   user_text:
     type: string
-    description: the text representation of the user performing the block
+    description: the text representation of the user performing the blocks change
+  comment:
+    type: string
+    description: the comment associated to the blocks change
 required:
   - meta
-  - user_blocked
-  - blocks
+  - user_id_blocks_changed
+  - user_text_blocks_changed
+  - new_blocks
+  - old_blocks
+  - user_id
+  - user_text
