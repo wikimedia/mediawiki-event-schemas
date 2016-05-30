@@ -45,7 +45,7 @@ properties:
   # event-specific fields
   title:
     type: string
-    description: the title of the page
+    description: the normalized title of the restored page
   new_page_id:
     type: integer
     minimum: 1
@@ -56,16 +56,27 @@ properties:
     description: the old page ID of the restored page
   namespace:
     type: integer
-    description: the namespace ID the page belongs to
+    description: the namespace the page belongs to
   user_id:
-    type: integer
+    type:
+      - integer
+      - null
     description: the user that performed the restoration
   user_text:
     type: string
     description: the text representation of the user
+  comment:
+    type: string
+    description: the comment left by the user
+  # Kept for easy transition - To be removed in favour of comment
   summary:
     type: string
     description: the summary comment left by the user
 required:
   - meta
   - title
+  - namespace
+  - old_page_id
+  - new_page_id
+  - user_id
+  - user_text

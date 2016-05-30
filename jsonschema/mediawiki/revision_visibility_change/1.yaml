@@ -1,5 +1,5 @@
-title: MediaWiki Revision Visibility Set
-description: Represents a MW Revision Visibility Set event
+title: MediaWiki Revision Visibility Change
+description: Represents a MW Revision Visibility Change event
 $schema: http://json-schema.org/draft-04/schema#
 type: object
 properties:
@@ -43,10 +43,16 @@ properties:
       - dt
       - domain
   # event-specific fields
+  # Kept for easy transition - To be removed in favour of rev_id
   revision_id:
     type: integer
     minimum: 1
     description: the revision ID the visibility of which is being changed
+  rev_id:
+    type: integer
+    minimum: 1
+    description: the revision ID the visibility of which is being changed
+  # Kept for easy transition - To be removed in favour of old/new visible
   hidden:
     type: object
     properties:
@@ -62,12 +68,51 @@ properties:
       comment:
         type: boolean
         description: whether the comment of the revision is available
+  new_visible:
+    type: object
+    properties:
+      sha1:
+        type: boolean
+        description: "whether the SHA1 of the revision's text is available"
+      text:
+        type: boolean
+        description: "whether the revision's text is available"
+      user:
+        type: boolean
+        description: "whether the author of the revision's text is available"
+      comment:
+        type: boolean
+        description: whether the comment of the revision is available
+  old_visible:
+    type: object
+    properties:
+      sha1:
+        type: boolean
+        description: "whether the SHA1 of the revision's text is available"
+      text:
+        type: boolean
+        description: "whether the revision's text is available"
+      user:
+        type: boolean
+        description: "whether the author of the revision's text is available"
+      comment:
+        type: boolean
+        description: whether the comment of the revision is available
   user_id:
-    type: integer
+    type:
+      - integer
+      - null
     description: the user that performed the visibility change
   user_text:
     type: string
     description: the text representation of the user
+  comment:
+    type: string
+    description: the comment left by the user
 required:
   - meta
-  - revision_id
+  - rev_id
+  - new_visible
+  - old_visible
+  - user_id
+  - user_text

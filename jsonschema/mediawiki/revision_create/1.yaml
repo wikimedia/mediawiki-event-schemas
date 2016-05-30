@@ -45,14 +45,14 @@ properties:
   # event-specific fields
   page_title:
     type: string
-    description: the title of the affected page
+    description: the normalized title of the affected page
   page_id:
     type: integer
     minimum: 1
     description: the page ID of the affected page
   page_namespace:
     type: integer
-    description: the namespace ID the page belongs to
+    description: the namespace the page belongs to
   rev_id:
     type: integer
     minimum: 1
@@ -66,16 +66,40 @@ properties:
     format: date-time
     description: the time stamp of the revision in ISO8601 format
   user_id:
-    type: integer
+    type:
+      - integer
+      - null
     description: the user that performed the edit
   user_text:
     type: string
     description: the text representation of the user
+  rev_sha1:
+    type: string
+    description: the sha1 of the revision text
+  rev_bytes:
+    type: integer
+    description: the bytes number of the revision text
+  rev_minor_edit:
+    type: boolean
+    description: flag identifying if the revision is minor
+  rev_content_model:
+    type: string
+    description: the content model of the revision
+  rev_content_format:
+    type: string
+    description: the content format of the revision
   comment:
     type: string
-    description: the summary comment left by the user
+    description: the comment left by the user
 required:
   - meta
   - page_title
+  - page_id
+  - page_namespace
   - rev_id
   - rev_timestamp
+  - user_id
+  - user_text
+  - rev_sha1
+  - rev_bytes
+  - rev_minor_edit
