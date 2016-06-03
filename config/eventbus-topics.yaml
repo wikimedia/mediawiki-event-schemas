@@ -59,6 +59,13 @@ change-prop.backlinks.continue:
 change-prop.retry.change-prop.backlinks.continue:
   schema_name: retry
 
+## Continuation topics for transcludes processing in change propagation service
+change-prop.transcludes.continue:
+  schema_name: continue
+
+change-prop.retry.change-prop.transcludes.continue:
+  schema_name: retry
+
 ## General error topic for change propagation
 change-prop.error:
   schema_name: error

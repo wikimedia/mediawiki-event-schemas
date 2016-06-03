@@ -43,6 +43,9 @@ properties:
       - dt
       - domain
   # event-specific fields
+  emitter_id:
+    type: string
+    description: identifies the entity that requested a retry
   original_event:
     type: object
     description: original event that began the batch
