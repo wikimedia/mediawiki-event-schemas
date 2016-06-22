@@ -74,8 +74,15 @@ properties:
   comment:
     type: string
     description: the summary comment left by the user
+  rev_by_bot:
+    type: boolean
+    description: flag identifying if the revision is made by a bot
 required:
   - meta
   - page_title
   - rev_id
   - rev_timestamp
+# After deploying https://gerrit.wikimedia.org/r/#/c/288210/9 we would need to do a non-backwards-compatible
+# change of the schema anyway, so make the rev_is_bot flag optional for now and uncomment together with other
+# backwards incompatible changes.
+# - rev_is_bot
