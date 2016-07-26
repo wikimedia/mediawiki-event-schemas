@@ -64,9 +64,9 @@ describe('Json schema', function() {
             var filePath = pathFromBase + '/' + fileName;
             if (fs.statSync(baseDir + filePath).isDirectory()) {
                 browseDir(filePath);
-            } else {
+            }
+            else if (filePath.endsWith('.yaml') || filePath.endsWith('.json')) {
                 var schema = yaml.safeLoad(fs.readFileSync(baseDir + filePath, 'utf8'));
-
                 it('Validity: ' + filePath, function() {
                     assert.notEqual(schema, undefined);
                     assert.notEqual(schema['$schema'], undefined);
