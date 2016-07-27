@@ -1,4 +1,4 @@
-title: MediaWiki User Block
+title: mediawiki/user_block
 description: Represents a MW User Block event
 $schema: http://json-schema.org/draft-04/schema#
 type: object

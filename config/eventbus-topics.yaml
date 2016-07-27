@@ -10,61 +10,81 @@
 #
 
 mediawiki.page_delete:
-  schema_name: page_delete
+  schema_name: mediawiki/page_delete
 
 mediawiki.page_move:
-  schema_name: page_move
+  schema_name: mediawiki/page_move
 
 mediawiki.page_restore:
-  schema_name: page_restore
+  schema_name: mediawiki/page_restore
 
 mediawiki.revision_visibility_set:
-  schema_name: revision_visibility_set
+  schema_name: mediawiki/revision_visibility_set
 
 mediawiki.revision_create:
-  schema_name: revision_create
+  schema_name: mediawiki/revision_create
 
 mediawiki.user_block:
-  schema_name: user_block
+  schema_name: mediawiki/user_block
+
+# These mediawiki topics and schemas deprecate the ones above.
+mediawiki.page-delete:
+  schema_name: mediawiki/page/delete
+
+mediawiki.page-move:
+  schema_name: mediawiki/page/move
+
+mediawiki.page-undelete:
+  schema_name: mediawiki/page/undelete
+
+mediawiki.revision-visibility-change:
+  schema_name: mediawiki/revision/visibility-change
+
+mediawiki.revision-create:
+  schema_name: mediawiki/revision/create
+
+mediawiki.user-blocks-change:
+  schema_name: mediawiki/user/blocks-change
+
 
 resource_change:
   schema_name: resource_change
 
 # Change propagation retry queues
 change-prop.retry.mediawiki.page_delete:
-  schema_name: retry
+  schema_name: change-prop/retry
 
 change-prop.retry.mediawiki.page_move:
-  schema_name: retry
+  schema_name: change-prop/retry
 
 change-prop.retry.mediawiki.page_restore:
-  schema_name: retry
+  schema_name: change-prop/retry
 
 change-prop.retry.mediawiki.revision_visibility_set:
-  schema_name: retry
+  schema_name: change-prop/retry
 
 change-prop.retry.mediawiki.revision_create:
-  schema_name: retry
+  schema_name: change-prop/retry
 
 change-prop.retry.mediawiki.user_block:
-  schema_name: retry
+  schema_name: change-prop/retry
 
 change-prop.retry.resource_change:
-  schema_name: retry
+  schema_name: change-prop/retry
 
 ## Continuation topics for backlinks processing in change propagation service
 change-prop.backlinks.continue:
-  schema_name: continue
+  schema_name: change-prop/continue
 
 change-prop.retry.change-prop.backlinks.continue:
-  schema_name: retry
+  schema_name: change-prop/retry
 
 ## Continuation topics for transcludes processing in change propagation service
 change-prop.transcludes.continue:
-  schema_name: continue
+  schema_name: change-prop/continue
 
 change-prop.retry.change-prop.transcludes.continue:
-  schema_name: retry
+  schema_name: change-prop/retry
 
 ## General error topic for change propagation
 change-prop.error:

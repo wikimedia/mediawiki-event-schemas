@@ -1,4 +1,4 @@
-title: Retry
+title: change-prop/retry
 description: Represents a failure in event processing and a request to retry it
 $schema: http://json-schema.org/draft-04/schema#
 type: object

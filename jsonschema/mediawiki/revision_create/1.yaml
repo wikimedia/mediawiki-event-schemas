@@ -1,4 +1,4 @@
-title: MediaWiki Revision Creation
+title: mediawiki/revision_create
 description: Represents a MW Revision Creation event
 $schema: http://json-schema.org/draft-04/schema#
 type: object

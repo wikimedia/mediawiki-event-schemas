@@ -1,4 +1,4 @@
-title: Resource Change
+title: resource_change
 description: Represents a change in a resource tied to the specified URI
 $schema: http://json-schema.org/draft-04/schema#
 type: object

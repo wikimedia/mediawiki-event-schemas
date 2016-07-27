@@ -1,4 +1,4 @@
-title: Continue
+title: change-prop/continue
 description: Represents a continuation request in batch processing
 $schema: http://json-schema.org/draft-04/schema#
 type: object

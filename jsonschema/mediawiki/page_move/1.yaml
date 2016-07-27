@@ -1,4 +1,4 @@
-title: MediaWiki Page Move
+title: mediawiki/page_move
 description: Represents a MW Page Move event
 $schema: http://json-schema.org/draft-04/schema#
 type: object

@@ -1,4 +1,4 @@
-title: MediaWiki Revision Visibility Set
+title: mediawiki/revision_visibiilty_set
 description: Represents a MW Revision Visibility Set event
 $schema: http://json-schema.org/draft-04/schema#
 type: object

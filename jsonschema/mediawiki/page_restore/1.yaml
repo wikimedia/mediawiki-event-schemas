@@ -1,4 +1,4 @@
-title: MediaWiki Page Restore
+title: mediawiki/page_restore
 description: Represents a MW Page Restore Edit event
 $schema: http://json-schema.org/draft-04/schema#
 type: object

@@ -1,4 +1,4 @@
-title: Test Event Schema
+title: test/event
 description: Schema used for simple tests
 $schema: http://json-schema.org/draft-04/schema#
 type: object

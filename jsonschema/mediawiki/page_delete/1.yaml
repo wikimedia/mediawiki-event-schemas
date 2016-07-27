@@ -1,4 +1,4 @@
-title: MediaWiki Page Delete
+title: mediawiki/page_delete
 description: Represents a MW Page Delete event
 $schema: http://json-schema.org/draft-04/schema#
 type: object
