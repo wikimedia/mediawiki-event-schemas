@@ -109,7 +109,7 @@ properties:
       rev_id doesn't change during a restore, so this should be the same
       rev_id that this page had when it was deleted.
     type: integer
-    minimum: 1
+    minimum: 0
 
 
   ### page undelete specific fields.

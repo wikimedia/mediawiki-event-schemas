@@ -66,7 +66,7 @@ properties:
         type: array
         items:
           type: string
-      is_bot:
+      user_is_bot:
         description: >
           True if this user is considered to be a bot.  This is checked
           via the $user->isBot() method, which considers both user_groups
@@ -107,7 +107,7 @@ properties:
   rev_id:
     description: The head revision for this page at the time of this event.
     type: integer
-    minimum: 1
+    minimum: 0
 
 
   ### page delete specific fields.

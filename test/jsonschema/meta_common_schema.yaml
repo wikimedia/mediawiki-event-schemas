@@ -1,4 +1,4 @@
-title: Meta Schema
+title: Meta Common Schema
 description: Used to validate that every schema contains a valid 'meta' property schema
 $schema: http://json-schema.org/draft-04/schema#
 type: object

@@ -1,0 +1,55 @@
+title: Revision Common Schema
+description: Used to validate that all revision events have common properties
+$schema: http://json-schema.org/draft-04/schema#
+type: object
+properties:
+  ### revision entity fields - all revision related events should have these.
+  page_id:
+    type: integer
+    minimum: 1
+
+  page_title:
+    type: string
+
+  page_namespace:
+    type: integer
+
+  rev_id:
+    type: integer
+    minimum: 0
+
+  rev_parent_id:
+    type: integer
+    minimum: 0
+
+  rev_timestamp:
+    type: string
+    format: date-time
+
+  rev_sha1:
+    type: string
+
+  rev_len:
+    type: integer
+
+  rev_minor_edit:
+    type: boolean
+
+  rev_content_model:
+    type: string
+
+  rev_content_format:
+    type: string
+
+  rev_by_bot:
+    type: boolean
+
+  page_is_redirect:
+    type: boolean
+
+required:
+  - page_id
+  - page_title
+  - page_namespace
+  - rev_id
+  - rev_timestamp

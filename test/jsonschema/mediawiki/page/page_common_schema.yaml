@@ -1,0 +1,26 @@
+title: Page Common Schema
+description: Used to validate that all page events have common properties
+$schema: http://json-schema.org/draft-04/schema#
+type: object
+properties:
+  page_id:
+    type: integer
+    minimum: 1
+
+  page_title:
+    type: string
+
+  page_namespace:
+    type: integer
+
+  page_is_redirect:
+    type: boolean
+
+  rev_id:
+    type: integer
+    minimum: 0
+
+required:
+  - page_id
+  - page_title
+  - page_namespace

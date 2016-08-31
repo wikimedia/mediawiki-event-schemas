@@ -98,12 +98,12 @@ properties:
   rev_id:
     description: The revision ID created by this event
     type: integer
-    minimum: 1
+    minimum: 0
 
   rev_parent_id:
     description: The parent revision of the revision that this event affects.
     type: integer
-    minimum: 1
+    minimum: 0
 
   rev_timestamp:
     description: >
@@ -141,6 +141,12 @@ properties:
       of the page, then the page will also be a redirect.
     type: boolean
 
+  rev_by_bot:
+    description: >
+      Flag identifying if the revision is made by a bot.  This ultimately
+      comes from $user->isAllowed('bot') and if the edit was submitted
+      as a 'bot' edit.
+    type: boolean
 
   ### revision visibility change specific fields.
   visibility:
@@ -190,6 +196,7 @@ required:
   - performer
   - page_id
   - page_title
+  - page_namespace
   - rev_id
   - rev_timestamp
   - visibility

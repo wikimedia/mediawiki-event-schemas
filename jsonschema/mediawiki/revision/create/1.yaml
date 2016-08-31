@@ -99,12 +99,12 @@ properties:
   rev_id:
     description: The revision ID created by this event
     type: integer
-    minimum: 1
+    minimum: 0
 
   rev_parent_id:
     description: The parent revision of the revision that this event affects.
     type: integer
-    minimum: 1
+    minimum: 0
 
   rev_timestamp:
     description: >

@@ -1,0 +1,19 @@
+title: User Common Schema
+description: Used to validate that all user events have common properties
+$schema: http://json-schema.org/draft-04/schema#
+type: object
+properties:
+  ### user entity fields - all user related events should have these.
+  user_id:
+    type: integer
+
+  user_text:
+    type: string
+
+  user_groups:
+    type: array
+    items:
+      type: string
+
+required:
+  - user_text

@@ -55,11 +55,11 @@ properties:
     description: the page ID of the moved page
   old_revision_id:
     type: integer
-    minimum: 1
+    minimum: 0
     description: the last revision ID before the move
   new_revision_id:
     type: integer
-    minimum: 1
+    minimum: 0
     description: the first revision ID after the move
   user_id:
     type: integer

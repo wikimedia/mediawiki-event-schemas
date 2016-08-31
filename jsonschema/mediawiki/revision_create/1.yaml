@@ -55,11 +55,11 @@ properties:
     description: the namespace ID the page belongs to
   rev_id:
     type: integer
-    minimum: 1
+    minimum: 0
     description: the revision ID created by this event
   rev_parent_id:
     type: integer
-    minimum: 1
+    minimum: 0
     description: the revision ID that this newly-created revision is based on
   rev_timestamp:
     type: string

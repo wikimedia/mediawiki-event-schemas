@@ -18,8 +18,8 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "mocha": "^2.4.5",
-    "preq": "^0.4.9",
     "ajv": "^4.0.1",
-    "js-yaml": "^3.0.6"
+    "js-yaml": "^3.0.6",
+    "file": "^0.2.2"
   }
 }

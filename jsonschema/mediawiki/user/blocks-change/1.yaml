@@ -172,5 +172,4 @@ required:
   - database
   - performer
   - user_text
-  - user_groups
   - blocks
