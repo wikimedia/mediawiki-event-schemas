@@ -69,6 +69,25 @@ change-prop.retry.mediawiki.revision_create:
 change-prop.retry.mediawiki.user_block:
   schema_name: change-prop/retry
 
+# These topics deprecate the ones above
+change-prop.retry.mediawiki.page-delete:
+  schema_name: change-prop/retry
+
+change-prop.retry.mediawiki.page-move:
+  schema_name: change-prop/retry
+
+change-prop.retry.mediawiki.page-undelete:
+  schema_name: change-prop/retry
+
+change-prop.retry.mediawiki.revision-visibility-change:
+  schema_name: change-prop/retry
+
+change-prop.retry.mediawiki.revision-create:
+  schema_name: change-prop/retry
+
+change-prop.retry.mediawiki.user-blocks-change:
+  schema_name: change-prop/retry
+
 change-prop.retry.resource_change:
   schema_name: change-prop/retry
 
