@@ -23,6 +23,7 @@ properties:
     required:
       - user_text
       - user_groups
+      - user_is_bot
 
   comment:
     type: string

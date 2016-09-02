@@ -76,6 +76,7 @@ properties:
     required:
       - user_text
       - user_groups
+      - user_is_bot
 
   comment:
     description: The comment left by the user that performed this change.
