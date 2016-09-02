@@ -134,13 +134,6 @@ properties:
     description: The content format of the revision.
     type: string
 
-  rev_by_bot:
-    description: >
-      Flag identifying if the revision is made by a bot.  This ultimately
-      comes from $user->isAllowed('bot') and if the edit was submitted
-      as a 'bot' edit.
-    type: boolean
-
   page_is_redirect:
     description: >
       True if this revision is a redirect.  This

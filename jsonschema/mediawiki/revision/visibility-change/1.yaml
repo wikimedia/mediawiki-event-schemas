@@ -141,12 +141,6 @@ properties:
       of the page, then the page will also be a redirect.
     type: boolean
 
-  rev_by_bot:
-    description: >
-      Flag identifying if the revision is made by a bot.  This ultimately
-      comes from $user->isAllowed('bot') and if the edit was submitted
-      as a 'bot' edit.
-    type: boolean
 
   ### revision visibility change specific fields.
   visibility:

@@ -41,9 +41,6 @@ properties:
   rev_content_format:
     type: string
 
-  rev_by_bot:
-    type: boolean
-
   page_is_redirect:
     type: boolean
 
