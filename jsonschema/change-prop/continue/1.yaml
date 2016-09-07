@@ -57,6 +57,10 @@ properties:
     description: >
       comma-separated list of event descriptions in `<topic>:<uri>` format,
       that represent a chain of events that caused this event to be emitted.
+  sequence_num:
+    type: integer
+    minimum: 1
+    description: Number of this continuation event in the current sequence.
 required:
   - meta
   - original_event
