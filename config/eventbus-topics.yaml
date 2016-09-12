@@ -108,3 +108,10 @@ change-prop.retry.change-prop.transcludes.continue:
 ## General error topic for change propagation
 change-prop.error:
   schema_name: error
+
+## Transclusion rerender topics for change propagation service
+change-prop.transcludes.resource-change:
+  schema_name: resource_change
+
+change-prop.retry.change-prop.transcludes.resource-change:
+  schema_name: change-prop/retry
