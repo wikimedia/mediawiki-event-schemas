@@ -1,0 +1,136 @@
+title: mediawiki/page/properties-change
+description: Represents a MW Page Properties Change event.
+$schema: http://json-schema.org/draft-04/schema#
+type: object
+properties:
+  ### Meta data object.  All events schemas should have this.
+  meta:
+    type: object
+    properties:
+      topic:
+        description: The queue topic name this message belongs to.
+        type: string
+      schema_uri:
+        description: >
+          The URI identifying the jsonschema for this event.  This may be just
+          a short uri containing only the name and revision at the end of the
+          URI path.  e.g. schema_name/12345 is acceptable.  This field
+          is not required.
+        type: string
+      uri:
+        description: The unique URI identifying the event.
+        type: string
+        format: uri
+      request_id:
+        description: The unique UUID v1 ID of the event derived from the X-Request-Id header.
+        type: string
+        pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
+      id:
+        description: The unique ID of this event; should match the dt field.
+        type: string
+        pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
+      dt:
+        description: The time stamp of the event, in ISO8601 format.
+        type: string
+        format: date-time
+      domain:
+        description: The domain the event pertains to.
+        type: string
+    required:
+      - topic
+      - uri
+      - id
+      - dt
+      - domain
+
+
+  ### Mediawiki entity fields.  All Mediawiki entity events should have these.
+  database:
+    description: The name of the wiki database this event belongs to.
+    type: string
+
+  performer:
+    description: Represents the user that performed this change.
+    type: object
+    properties:
+      user_id:
+        description: >
+          The user id that performed this change.  This is optional, and
+          will not be present for anonymous users.
+        type: integer
+      user_text:
+        description: The text representation of the user that performed this change.
+        type: string
+      user_groups:
+        description: A list of the groups this user belongs to.  E.g. bot, sysop etc.
+        type: array
+        items:
+          type: string
+      user_is_bot:
+        description: >
+          True if this user is considered to be a bot.  This is checked
+          via the $user->isBot() method, which considers both user_groups
+          and user permissions.
+        type: boolean
+    required:
+      - user_text
+      - user_groups
+      - user_is_bot
+
+
+  ### page entity fields - all page related events should have these.
+  page_id:
+    description: The page ID of the page which properties has been changed.
+    type: integer
+    minimum: 1
+
+  page_title:
+    description: The normalized title of the page.
+    type: string
+
+  page_namespace:
+    description: The namespace ID this page belongs to.
+    type: integer
+
+  page_is_redirect:
+    description: >
+      True if this page is currently a redirect page.  This
+      fact is ultimately represented by revision content containing
+      redirect wikitext.  If rev_id's content has redirect wikitext,
+      then this page is a redirect.  Note that this state is also
+      stored on the Mediawiki page table.
+    type: boolean
+
+  rev_id:
+    description: The head revision of the page which properties has been changed.
+    type: integer
+    minimum: 0
+
+
+  ### page properties change specific fields.
+  removed_properties:
+    description: >
+      The old page properties. This map would only contain the previous
+      values of the properties that were either removed or changed by
+      this event. Properties that were intact would not be present here.
+      If the property was changed, its new value would be present in the
+      'added_properties' object.
+    type: object
+
+  added_properties:
+    description: >
+      The new page properties. This map would only contain properties that
+      were either added or changed, properties that were intact would not
+      be present here. If the property was changed, its previous value would
+      be present in the 'removed_properties' object.
+    type: object
+
+required:
+  - meta
+  - database
+  - performer
+  - page_id
+  - page_title
+  - page_namespace
+  - page_is_redirect
+  - rev_id

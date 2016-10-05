@@ -25,9 +25,6 @@ properties:
       - user_groups
       - user_is_bot
 
-  comment:
-    type: string
-
 required:
   - database
   - performer

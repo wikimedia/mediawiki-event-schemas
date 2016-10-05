@@ -18,6 +18,9 @@ mediawiki.page-move:
 mediawiki.page-undelete:
   schema_name: mediawiki/page/undelete
 
+mediawiki.page-properties-change:
+  schema_name: mediawiki/page/properties-change
+
 mediawiki.revision-visibility-change:
   schema_name: mediawiki/revision/visibility-change
 
@@ -38,6 +41,9 @@ change-prop.retry.mediawiki.page-move:
   schema_name: change-prop/retry
 
 change-prop.retry.mediawiki.page-undelete:
+  schema_name: change-prop/retry
+
+change-prop.retry.mediawiki.page-properties-change:
   schema_name: change-prop/retry
 
 change-prop.retry.mediawiki.revision-visibility-change:
