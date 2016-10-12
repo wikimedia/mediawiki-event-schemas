@@ -49,35 +49,6 @@ properties:
     description: The name of the wiki database this event belongs to.
     type: string
 
-  performer:
-    description: Represents the user that performed this change.
-    type: object
-    properties:
-      user_id:
-        description: >
-          The user id that performed this change.  This is optional, and
-          will not be present for anonymous users.
-        type: integer
-      user_text:
-        description: The text representation of the user that performed this change.
-        type: string
-      user_groups:
-        description: A list of the groups this user belongs to.  E.g. bot, sysop etc.
-        type: array
-        items:
-          type: string
-      user_is_bot:
-        description: >
-          True if this user is considered to be a bot.  This is checked
-          via the $user->isBot() method, which considers both user_groups
-          and user permissions.
-        type: boolean
-    required:
-      - user_text
-      - user_groups
-      - user_is_bot
-
-
   ### page entity fields - all page related events should have these.
   page_id:
     description: The page ID of the page which properties has been changed.
@@ -128,7 +99,6 @@ properties:
 required:
   - meta
   - database
-  - performer
   - page_id
   - page_title
   - page_namespace

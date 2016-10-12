@@ -35,7 +35,12 @@ assert.isSuperSchema = (schema, example, path) => {
         // Go recursively
         return Object.keys(example)
         .filter((key) => key !== 'title' && key !== 'description')
-        .forEach((key) => assert.isSuperSchema(schema[key], example[key], path + '.' + key));
+        .forEach((key) => {
+            if (example.required.indexOf(key) !== -1
+                    || schema.required.indexOf(key) !== -1) {
+                assert.isSuperSchema(schema[key], example[key], path + '.' + key)
+            }
+        });
     } else if (schema !== example) {
         throw new assert.AssertionError({
             message: `Error at path: ${path}`,
