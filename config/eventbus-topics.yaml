@@ -30,6 +30,9 @@ mediawiki.revision-create:
 mediawiki.user-blocks-change:
   schema_name: mediawiki/user/blocks-change
 
+mediawiki.recentchange:
+  schema_name: mediawiki/recentchange
+
 resource_change:
   schema_name: resource_change
 
