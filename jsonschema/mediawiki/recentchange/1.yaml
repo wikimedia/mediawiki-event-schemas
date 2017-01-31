@@ -48,7 +48,7 @@ properties:
   ### Fields common to all recentchange events
   id:
     description: ID of the recentchange event (rcid).
-    type: integer
+    type: [integer, "null"]
 
   type:
     description: >
