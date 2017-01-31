@@ -116,10 +116,10 @@ properties:
     properties:
       old:
         description: (rc_old_len)
-        type: integer
+        type: [integer, "null"]
       new:
         description: (rc_new_len)
-        type: integer
+        type: [integer, "null"]
 
   revision:
     description: Old and new revision IDs
@@ -127,20 +127,20 @@ properties:
     properties:
       new:
         description: (rc_last_oldid)
-        type: integer
+        type: [integer, "null"]
       old:
         description: (rc_this_oldid)
-        type: integer
+        type: [integer, "null"]
 
 
   ### Log event related fields
   log_id:
     description: (rc_log_id)
-    type: integer
+    type: [integer, "null"]
 
   log_type:
     description: (rc_log_type)
-    type: string
+    type: [string, "null"]
 
   log_action:
     description: (rc_log_action)
@@ -148,11 +148,11 @@ properties:
 
   log_params:
     description: Property only exists if event has rc_params.
-    type: object
+    type: [array, object, string]
     additionalProperties: true
 
   log_action_comment:
-    type: string
+    type: [string, "null"]
 
 # Since recentchanges has existed before we began enforcing real JSON schemas,
 # we do not require any fields (other than meta), and do not invalidate if additional
