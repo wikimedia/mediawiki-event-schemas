@@ -88,3 +88,7 @@ change-prop.transcludes.resource-change:
 
 change-prop.retry.change-prop.transcludes.resource-change:
   schema_name: change-prop/retry
+
+## MediaWiki Job topics
+/^mediawiki\.job\..+/:
+  schema_name: mediawiki/job
