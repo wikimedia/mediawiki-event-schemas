@@ -39,44 +39,13 @@ mediawiki.recentchange:
 resource_change:
   schema_name: resource_change
 
-# Change propagation retry queues
-change-prop.retry.mediawiki.page-delete:
-  schema_name: change-prop/retry
-
-change-prop.retry.mediawiki.page-move:
-  schema_name: change-prop/retry
-
-change-prop.retry.mediawiki.page-undelete:
-  schema_name: change-prop/retry
-
-change-prop.retry.mediawiki.page-properties-change:
-  schema_name: change-prop/retry
-
-change-prop.retry.mediawiki.revision-visibility-change:
-  schema_name: change-prop/retry
-
-change-prop.retry.mediawiki.revision-create:
-  schema_name: change-prop/retry
-
-change-prop.retry.mediawiki.user-blocks-change:
-  schema_name: change-prop/retry
-
-change-prop.retry.resource_change:
-  schema_name: change-prop/retry
-
 ## Continuation topics for backlinks processing in change propagation service
 change-prop.backlinks.continue:
   schema_name: change-prop/continue
 
-change-prop.retry.change-prop.backlinks.continue:
-  schema_name: change-prop/retry
-
 ## Continuation topics for transcludes processing in change propagation service
 change-prop.transcludes.continue:
   schema_name: change-prop/continue
-
-change-prop.retry.change-prop.transcludes.continue:
-  schema_name: change-prop/retry
 
 ## General error topic for change propagation
 change-prop.error:
@@ -86,7 +55,8 @@ change-prop.error:
 change-prop.transcludes.resource-change:
   schema_name: resource_change
 
-change-prop.retry.change-prop.transcludes.resource-change:
+# Change propagation retry queues
+/^change-prop\.retry\..+/:
   schema_name: change-prop/retry
 
 ## MediaWiki Job topics
