@@ -35,6 +35,9 @@ mediawiki.revision-visibility-change:
 mediawiki.revision-create:
   schema_name: mediawiki/revision/create
 
+mediawiki.revision-score:
+  schema_name: mediawiki/revision/score
+
 mediawiki.user-blocks-change:
   schema_name: mediawiki/user/blocks-change
 
