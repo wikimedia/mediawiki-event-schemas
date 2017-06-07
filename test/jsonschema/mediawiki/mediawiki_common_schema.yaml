@@ -20,6 +20,18 @@ properties:
           type: string
       user_is_bot:
         type: boolean
+      user_registration_dt:
+        description: >
+          The datetime of the user account registration.
+          Not present for anonymous users or if missing in the MW database.
+        type: string
+        format: date-time
+      user_edit_count:
+        description: >
+          The number of edits this user has made at the time this revision is created.
+          Not present for anonymous users.
+        type: integer
+        minimum: 0
     required:
       - user_text
       - user_groups
