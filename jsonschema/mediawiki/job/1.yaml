@@ -65,13 +65,21 @@ properties:
     description: unique ID of the job derived from the deduplication info
     type: string
 
-  rootJobTimestamp:
-    description: the timestamp of the root job for this leaf job
-    type: string
-    format: date-time
-
-  rootJobSignature:
-    description: the unique signature of the root job used for deduplication
+  # Deduplication information
+  root_event:
+    type: object
+    description: Unique identifier of the root event that triggered this event creation
+    properties:
+      dt:
+        description: the timestamp of the root event, in ISO8601 format
+        type: string
+        format: date-time
+      signature:
+        type: string
+        description: the unique signature of root event
+    required:
+      - dt
+      - signature
 
   params:
     description: various parameters speific to a particular job

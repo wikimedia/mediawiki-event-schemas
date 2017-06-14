@@ -54,5 +54,22 @@ properties:
     description: >
       comma-separated list of event descriptions in `<topic>:<uri>` format,
       that represent a chain of events that caused this event to be emitted.
+
+  # Deduplication information
+  root_event:
+    type: object
+    description: Unique identifier of the root event that triggered this event creation
+    properties:
+      dt:
+        description: the timestamp of the root event, in ISO8601 format
+        type: string
+        format: date-time
+      signature:
+        type: string
+        description: the unique signature of root event
+    required:
+      - dt
+      - signature
+
 required:
   - meta
