@@ -9,6 +9,11 @@
 # allows it to be used by services outside of WMF production.
 #
 
+mediawiki.page-create:
+  # A page create is just a special case of revision create,
+  # so we can reuse the same schema.
+  schema_name: mediawiki/revision/create
+
 mediawiki.page-delete:
   schema_name: mediawiki/page/delete
 
