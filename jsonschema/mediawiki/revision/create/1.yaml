@@ -147,6 +147,10 @@ properties:
     description: The content format of the revision.
     type: string
 
+  rev_content_changed:
+    description: Whether the revision actually changes the page content.
+    type: boolean
+
   page_is_redirect:
     description: >
       True if this revision is a redirect.  This
