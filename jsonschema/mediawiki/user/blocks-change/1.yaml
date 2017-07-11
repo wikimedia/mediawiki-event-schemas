@@ -93,7 +93,6 @@ properties:
     description: The comment left by the user that performed this change.
     type: string
 
-
   ### user entity fields - all user related events should have these.
   user_id:
     description: >

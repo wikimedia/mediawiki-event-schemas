@@ -70,6 +70,10 @@ properties:
     description: (rc_comment)
     type: string
 
+  parsedcomment:
+    description: The rc_comment parsed into simple HTML. Optional
+    type: string
+
   timestamp:
     description: Unix timestamp (derived from rc_timestamp).
     type: integer
