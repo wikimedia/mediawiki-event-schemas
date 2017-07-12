@@ -3,9 +3,42 @@ description: Used to validate that all page events have common properties
 $schema: http://json-schema.org/draft-04/schema#
 type: object
 properties:
+  database:
+    type: string
+
+  performer:
+    type: object
+    properties:
+      user_id:
+        type: integer
+      user_text:
+        type: string
+      user_groups:
+        type: array
+        items:
+          type: string
+      user_is_bot:
+        type: boolean
+      user_registration_dt:
+        description: >
+          The datetime of the user account registration.
+          Not present for anonymous users or if missing in the MW database.
+        type: string
+        format: date-time
+      user_edit_count:
+        description: >
+          The number of edits this user has made at the time this revision is created.
+          Not present for anonymous users.
+        type: integer
+        minimum: 0
+    required:
+      - user_text
+      - user_groups
+      - user_is_bot
+
   page_id:
     type: integer
-    minimum: 1
+    # minimum: 1 It's different for the page-restriction-change schema.
 
   page_title:
     type: string

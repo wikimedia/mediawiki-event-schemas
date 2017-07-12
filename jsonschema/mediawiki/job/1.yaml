@@ -44,6 +44,10 @@ properties:
       - dt
       - domain
 
+  database:
+    description: The name of the wiki database this event belongs to.
+    type: string
+
   type:
     description: type of the job
     type: string
@@ -87,6 +91,7 @@ properties:
 
 required:
   - meta
+  - database
   - type
   - page_namespace
   - page_title
