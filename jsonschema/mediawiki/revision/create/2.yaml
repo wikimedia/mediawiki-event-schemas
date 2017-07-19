@@ -1,5 +1,6 @@
-title: mediawiki/revision/visibility-change
-description: Represents a MW Revision Visibiilty Change event.
+title: mediawiki/revision/create
+description: >
+  Represents a MW Revision Create event.
 $schema: http://json-schema.org/draft-04/schema#
 type: object
 properties:
@@ -93,13 +94,14 @@ properties:
     description: The comment left by the user that performed this change.
     type: string
 
+  ### Since mediawiki.revision-create v2
   parsedcomment:
     description: >
       The comment left by the user that performed this change
       parsed into simple HTML. Optional
     type: string
 
-  ### revision.* fields - all revision related events should have these.
+  ### revision entity fields - all revision related events should have these.
   page_id:
     description: The page ID of the page this revision belongs to.
     type: integer
@@ -151,6 +153,10 @@ properties:
     description: The content format of the revision.
     type: string
 
+  rev_content_changed:
+    description: Whether the revision actually changes the page content.
+    type: boolean
+
   page_is_redirect:
     description: >
       True if this revision is a redirect.  This
@@ -158,48 +164,6 @@ properties:
       redirect wikitext.  If this revision is the head revision
       of the page, then the page will also be a redirect.
     type: boolean
-
-
-  ### revision visibility change specific fields.
-  visibility:
-    description: The visiblity state of this revision.
-    type: object
-    properties:
-      text:
-        description: Whether the revision's text is visible.
-        type: boolean
-      user:
-        description: Whether the author of the revision's text is visible.
-        type: boolean
-      comment:
-        description: Whether the comment of the revision is visible.
-        type: boolean
-    required:
-      - text
-      - user
-      - comment
-
-  prior_state:
-    description: >
-      The prior state of the entity before this event.  Revisions always have
-      visibility settings, so this object will always contain the visibility
-      settings for the revision before this event.
-    type: object
-    properties:
-      visibility:
-        description: The prior visiblity state of this revision.
-        type: object
-        properties:
-          text:
-            type: boolean
-          user:
-            type: boolean
-          comment:
-            type: boolean
-        required:
-          - text
-          - user
-          - comment
 
 
 required:
@@ -211,5 +175,3 @@ required:
   - page_namespace
   - rev_id
   - rev_timestamp
-  - visibility
-  - prior_state

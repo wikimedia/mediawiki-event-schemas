@@ -1,5 +1,5 @@
-title: mediawiki/revision/visibility-change
-description: Represents a MW Revision Visibiilty Change event.
+title: mediawiki/page/delete
+description: Represents a MW Page Delete event.
 $schema: http://json-schema.org/draft-04/schema#
 type: object
 properties:
@@ -93,113 +93,48 @@ properties:
     description: The comment left by the user that performed this change.
     type: string
 
+  ### Since mediawiki.page-delete v2
   parsedcomment:
     description: >
       The comment left by the user that performed this change
       parsed into simple HTML. Optional
     type: string
 
-  ### revision.* fields - all revision related events should have these.
+  ### page entity fields - all page related events should have these.
   page_id:
-    description: The page ID of the page this revision belongs to.
+    description: The page ID of the moved page.
     type: integer
     minimum: 1
 
   page_title:
-    description: The normalized title of the page this revision belongs to.
+    description: The normalized title of the page.
     type: string
 
   page_namespace:
-    description: The namespace of the page this revision belongs to.
+    description: The namespace ID this page belongs to.
     type: integer
-
-  rev_id:
-    description: The revision ID created by this event
-    type: integer
-    minimum: 0
-
-  rev_parent_id:
-    description: The parent revision of the revision that this event affects.
-    type: integer
-    minimum: 0
-
-  rev_timestamp:
-    description: >
-      The revision's creation time in ISO8601 format.  This field
-      does not end in '_dt' to better match the field name on the
-      Mediawiki revision table.
-    type: string
-    format: date-time
-
-  rev_sha1:
-    description: The sha1 of the revision text.
-    type: string
-
-  rev_len:
-    description: The length of the revision text in bytes.
-    type: integer
-
-  rev_minor_edit:
-    description: Flag identifying if the revision is minor.
-    type: boolean
-
-  rev_content_model:
-    description: The content model of the revision.
-    type: string
-
-  rev_content_format:
-    description: The content format of the revision.
-    type: string
 
   page_is_redirect:
     description: >
-      True if this revision is a redirect.  This
+      True if this page is currently a redirect page.  This
       fact is ultimately represented by revision content containing
-      redirect wikitext.  If this revision is the head revision
-      of the page, then the page will also be a redirect.
+      redirect wikitext.  If rev_id's content has redirect wikitext,
+      then this page is a redirect.  Note that this state is also
+      stored on the Mediawiki page table.
     type: boolean
 
+  rev_id:
+    description: The head revision for this page at the time of this event.
+    type: integer
+    minimum: 0
 
-  ### revision visibility change specific fields.
-  visibility:
-    description: The visiblity state of this revision.
-    type: object
-    properties:
-      text:
-        description: Whether the revision's text is visible.
-        type: boolean
-      user:
-        description: Whether the author of the revision's text is visible.
-        type: boolean
-      comment:
-        description: Whether the comment of the revision is visible.
-        type: boolean
-    required:
-      - text
-      - user
-      - comment
 
-  prior_state:
+  ### page delete specific fields.
+  rev_count:
     description: >
-      The prior state of the entity before this event.  Revisions always have
-      visibility settings, so this object will always contain the visibility
-      settings for the revision before this event.
-    type: object
-    properties:
-      visibility:
-        description: The prior visiblity state of this revision.
-        type: object
-        properties:
-          text:
-            type: boolean
-          user:
-            type: boolean
-          comment:
-            type: boolean
-        required:
-          - text
-          - user
-          - comment
+      The number of revisions of this page at the time of this event.
+      During a delete, this number of revisions will be archived.
+    type: integer
 
 
 required:
@@ -209,7 +144,3 @@ required:
   - page_id
   - page_title
   - page_namespace
-  - rev_id
-  - rev_timestamp
-  - visibility
-  - prior_state
