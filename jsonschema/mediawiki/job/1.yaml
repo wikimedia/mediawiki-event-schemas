@@ -91,7 +91,6 @@ properties:
 
 required:
   - meta
-  - database
   - type
   - page_namespace
   - page_title
