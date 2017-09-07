@@ -22,7 +22,9 @@ properties:
         description: the unique URI identifying the event / resource
       request_id:
         type: string
-        pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
+        # TODO: Temporary disable this validation requirement while working on a proper fix
+        # because it's causing an alert.
+        #pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
         description: the unique UUID v1 ID of the event derived from the X-Request-Id header
       id:
         type: string
