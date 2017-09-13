@@ -25,7 +25,7 @@ properties:
       request_id:
         description: The unique UUID v1 ID of the event derived from the X-Request-Id header.
         type: string
-        pattern: '^[a-zA-Z0-9\-]+$'
+        pattern: '^[a-zA-Z0-9\-@]+$'
       id:
         description: The unique ID of this event; should match the dt field.
         type: string
