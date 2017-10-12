@@ -85,6 +85,10 @@ properties:
       - dt
       - signature
 
+  secret_signature:
+    description: The cryptograthic signature of the event baed on MW SecretKey
+    type: string
+
   params:
     description: various parameters speific to a particular job
     type: object
@@ -95,3 +99,4 @@ required:
   - type
   - page_namespace
   - page_title
+  # TODO: add secret_signature to required once producing it is deployed
