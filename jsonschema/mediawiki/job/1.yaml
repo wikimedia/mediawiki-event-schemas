@@ -85,7 +85,7 @@ properties:
       - dt
       - signature
 
-  secret_signature:
+  mediawiki_signature:
     description: The cryptograthic signature of the event baed on MW SecretKey
     type: string
 
@@ -99,4 +99,4 @@ required:
   - type
   - page_namespace
   - page_title
-  # TODO: add secret_signature to required once producing it is deployed
+  # TODO: add mediawiki_signature to required once producing it is deployed
