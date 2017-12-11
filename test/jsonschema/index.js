@@ -34,7 +34,7 @@ assert.isSuperSchema = (schema, example, path) => {
     } else if (typeof example === 'object') {
         // Go recursively
         return Object.keys(example)
-        .filter((key) => key !== 'title' && key !== 'description')
+        .filter((key) => key !== 'title' && key !== 'description' && key !== 'pattern')
         .forEach((key) => assert.isSuperSchema(schema[key], example[key], path + '.' + key));
     } else if (schema !== example) {
         throw new assert.AssertionError({

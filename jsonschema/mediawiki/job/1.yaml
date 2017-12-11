@@ -23,7 +23,7 @@ properties:
         type: string
         format: uri
       request_id:
-        description: The unique UUID v1 ID of the event derived from the X-Request-Id header.
+        description: The unique ID of the request that caused the event.
         type: string
         pattern: '^[a-zA-Z0-9\-@]+$'
       id:
