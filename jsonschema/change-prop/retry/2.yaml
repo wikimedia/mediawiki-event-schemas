@@ -1,8 +1,9 @@
-title: Meta Common Schema
-description: Used to validate that every schema contains a valid 'meta' property schema
+title: change-prop/retry
+description: Represents a failure in event processing and a request to retry it
 $schema: http://json-schema.org/draft-04/schema#
 type: object
 properties:
+  # global event fields
   meta:
     type: object
     properties:
@@ -23,7 +24,6 @@ properties:
         description: the unique URI identifying the event / resource
       request_id:
         type: string
-        # We don't test for the pattern, because the job events have different request-id pattern
         description: The unique ID of the request that caused the event.
       id:
         type: string
@@ -43,5 +43,26 @@ properties:
       - id
       - dt
       - domain
+  # event-specific fields
+  emitter_id:
+    type: string
+    description: identifies the entity that requested a retry
+  retries_left:
+    type: integer
+    description: number of retry attempts left for this event
+  original_event:
+    type: object
+    description: original event that caused a failure
+  reason:
+    type: string
+    description: message describing the reason of the retry
+  triggered_by:
+    type: string
+    description: >
+      comma-separated list of event descriptions in `<topic>:<uri>` format,
+      that represent a chain of events that caused this event to be emitted.
 required:
   - meta
+  - emitter_id
+  - retries_left
+  - original_event

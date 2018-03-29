@@ -85,22 +85,26 @@ describe('Json schema', () => {
                     return;
                 }
 
-                // Testing conformance to the common interface
-                var pathSegments = schemaPath.split('/');
-                for (var idx = 0; idx < pathSegments.length - 1; idx++) {
-                    var subPath = path.join(__dirname, pathSegments.slice(0, idx).join('/'));
-                    if (fs.existsSync(subPath) && fs.statSync(subPath).isDirectory()) {
-                        fs.readdirSync(subPath).filter(isYamlJson).forEach((fileName) => {
-                            const exampleSchema = loadYaml(path.join(subPath, fileName));
-                            it('Must contain ' + cropExtension(fileName), () => {
-                                assert.isSuperSchema(schema, exampleSchema);
+                const schemaVersion = Number.parseInt(fileName.replace('.yaml', ''));
+
+                // Only test the latest schema version for inclusion of all items
+                if (!fs.existsSync(path.join(dirPath, `${schemaVersion + 1}.yaml`))) {
+                    // Testing conformance to the common interface
+                    const pathSegments = schemaPath.split('/');
+                    for (let idx = 0; idx < pathSegments.length - 1; idx++) {
+                        const subPath = path.join(__dirname, pathSegments.slice(0, idx).join('/'));
+                        if (fs.existsSync(subPath) && fs.statSync(subPath).isDirectory()) {
+                            fs.readdirSync(subPath).filter(isYamlJson).forEach((fileName) => {
+                                const exampleSchema = loadYaml(path.join(subPath, fileName));
+                                it('Must contain ' + cropExtension(fileName), () => {
+                                    assert.isSuperSchema(schema, exampleSchema);
+                                });
                             });
-                        });
+                        }
                     }
                 }
 
                 // Testing that new versions only extend previous versions
-                const schemaVersion = Number.parseInt(fileName.replace('.yaml', ''));
                 if (schemaVersion > 1) {
                     for (let prevVersion = schemaVersion - 1; prevVersion > 0; prevVersion--) {
                         const prevSchema = loadYaml(path.join(dirPath, prevVersion + '.yaml'));

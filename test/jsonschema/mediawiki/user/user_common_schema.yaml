@@ -5,6 +5,7 @@ type: object
 properties:
   database:
     type: string
+    minLength: 1
 
   performer:
     type: object
@@ -13,10 +14,12 @@ properties:
         type: integer
       user_text:
         type: string
+        minLength: 1
       user_groups:
         type: array
         items:
           type: string
+          minLength: 1
       user_is_bot:
         type: boolean
       user_registration_dt:
@@ -42,11 +45,13 @@ properties:
 
   user_text:
     type: string
+    minLength: 1
 
   user_groups:
     type: array
     items:
       type: string
+      minLength: 1
 
 required:
   - user_text

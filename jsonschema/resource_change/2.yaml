@@ -1,8 +1,9 @@
-title: Meta Common Schema
-description: Used to validate that every schema contains a valid 'meta' property schema
+title: resource_change
+description: Represents a change in a resource tied to the specified URI
 $schema: http://json-schema.org/draft-04/schema#
 type: object
 properties:
+  # global event fields
   meta:
     type: object
     properties:
@@ -23,7 +24,6 @@ properties:
         description: the unique URI identifying the event / resource
       request_id:
         type: string
-        # We don't test for the pattern, because the job events have different request-id pattern
         description: The unique ID of the request that caused the event.
       id:
         type: string
@@ -43,5 +43,34 @@ properties:
       - id
       - dt
       - domain
+  # event-specific fields
+  tags:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+    description: the list of tags associated with the change event for the resource
+  triggered_by:
+    type: string
+    description: >
+      comma-separated list of event descriptions in `<topic>:<uri>` format,
+      that represent a chain of events that caused this event to be emitted.
+
+  # Deduplication information
+  root_event:
+    type: object
+    description: Unique identifier of the root event that triggered this event creation
+    properties:
+      dt:
+        description: the timestamp of the root event, in ISO8601 format
+        type: string
+        format: date-time
+      signature:
+        type: string
+        description: the unique signature of root event
+    required:
+      - dt
+      - signature
+
 required:
   - meta
