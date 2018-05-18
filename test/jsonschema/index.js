@@ -11,9 +11,11 @@ const Ajv = require('ajv');
 const ajv = new Ajv({});
 const baseDir = path.join(__dirname, '/../../jsonschema/');
 
-// Checks whether the schema contains each and every property from the 'superschema'
-assert.isSuperSchema = (schema, example, path) => {
+// Checks whether the schema contains each and every required property from the 'superschema'
+assert.isSuperSchema = (schema, example, path, required) => {
     path = path || '';
+    required = required || []
+
     if (typeof schema !== typeof example || Array.isArray(schema) !== Array.isArray(example)) {
         throw new assert.AssertionError({
             message: `Error at path: ${path}`,
@@ -35,7 +37,11 @@ assert.isSuperSchema = (schema, example, path) => {
         // Go recursively
         return Object.keys(example)
         .filter((key) => key !== 'title' && key !== 'description' && key !== 'pattern')
-        .forEach((key) => assert.isSuperSchema(schema[key], example[key], path + '.' + key));
+        // Filter for key in both schemas, or required keys in example schema
+        .filter((key) => key in schema || required.indexOf(key) >= 0)
+        .forEach((key) =>
+            assert.isSuperSchema(schema[key], example[key], path + '.' + key, example['required'])
+        );
     } else if (schema !== example) {
         throw new assert.AssertionError({
             message: `Error at path: ${path}`,
