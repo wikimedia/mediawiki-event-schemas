@@ -80,36 +80,47 @@ properties:
 
   scores:
     description: >
-      An array of (ORES) score objects, one for
-      each model that was used to score this revision.
+      List of ORES score objects. Each model here was used to score this revision.  Example:
+      {
+        "model_name": "awesomeness",
+        "model_version": "1.0",
+        "prediction": ["yes", "mostly"],
+        "probability": [
+          {"name": "yes", "value": 0.99},
+          {"name": "mostly", "value": 0.90},
+          {"name": "hardly", "value": 0.01}
+        ]
+      }
     type: array
     items:
       type: object
       properties:
         model_name:
-          description: The model used to generated this score.
+          description: The name of the model used for this score.
           type: string
         model_version:
-          description: The version of the model used to generate this score.
+          description: The version of the model used for this score.
           type: string
-
         prediction:
-          description: Not all models have predictions, but when they do, they could be anything!
-          type:
-            - number
-            - string
-            - boolean
-            - array
-            - object
-
+          description: A list of predictions made by this model.
+          type: array
+          items:
+            type: string
         probability:
           description: >
-            Not all models have probabilities, but if it does, a score probability will have
-            varible string keys -> decimal values. E.g. attack: 0.001, spam: 0.009, etc.
-          type: object
-          additionalProperties:
-            type: number
-
+            A list of probabilities made by this model.
+            Each element is an object with a probability 'name' and a probability 'value'.
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: number
+            required:
+              - name
+              - value
         error:
           description: >
             An error that occured while generating this score.  If this field
@@ -123,15 +134,11 @@ properties:
             message:
               description: A human-readable explanation of what went wrong
               type: string
-
-      # A score model can create data with any schema it likes,
-      # so we allow any additional fields here.  ¯\_(ツ)_/¯
-      # (additionalProperties is true by default, setting here here just to be explicit.)
-      additionalProperties: true
-
       required:
         - model_name
         - model_version
+        - prediction
+        - probability
 
 required:
   - meta
