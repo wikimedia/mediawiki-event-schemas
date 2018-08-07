@@ -38,6 +38,9 @@ mediawiki.revision-create:
 mediawiki.revision-score:
   schema_name: mediawiki/revision/score
 
+mediawiki.revision-tags-change:
+  schema_name: mediawiki/revision/tags-change
+
 mediawiki.user-blocks-change:
   schema_name: mediawiki/user/blocks-change
 
