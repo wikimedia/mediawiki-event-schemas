@@ -128,7 +128,7 @@ properties:
             this model was not successful.
           type: object
           properties:
-            code:
+            type:
               description: The short name of this error
               type: string
             message:
