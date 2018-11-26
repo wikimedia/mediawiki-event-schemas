@@ -137,8 +137,6 @@ properties:
       required:
         - model_name
         - model_version
-        - prediction
-        - probability
 
 required:
   - meta
