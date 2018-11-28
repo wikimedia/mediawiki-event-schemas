@@ -83,10 +83,10 @@ properties:
       List of ORES score objects. Each model here was used to score this revision.  Example:
       {
         "model_name": "awesomeness",
-        "model_version": "1.0",
+        "model_version": "1.0.1",
         "prediction": ["yes", "mostly"],
         "probability": [
-          {"name": "yes", "value": 0.99},
+          {"name": "yes",    "value": 0.99},
           {"name": "mostly", "value": 0.90},
           {"name": "hardly", "value": 0.01}
         ]
@@ -121,22 +121,35 @@ properties:
             required:
               - name
               - value
-        error:
-          description: >
-            An error that occured while generating this score.  If this field
-            is present, then it is likely that the scoring this revision with
-            this model was not successful.
-          type: object
-          properties:
-            type:
-              description: The short name of this error
-              type: string
-            message:
-              description: A human-readable explanation of what went wrong
-              type: string
       required:
         - model_name
         - model_version
+        - prediction
+        - probability
+  errors:
+    description: >
+      Errors that occured when models attempted to score this revision.
+    type: array
+    items:
+      type: object
+      properties:
+        model_name:
+          description: The name of the model that encountered this error.
+          type: string
+        model_version:
+          description: The version of the model that encountered this error.
+          type: string
+        type:
+          description: The short name of this error
+          type: string
+        message:
+          description: A human-readable explanation of what went wrong
+          type: string
+      required:
+        - model_name
+        - model_version
+        - type
+        - message
 
 required:
   - meta
@@ -146,4 +159,3 @@ required:
   - page_namespace
   - rev_id
   - rev_timestamp
-  - scores
