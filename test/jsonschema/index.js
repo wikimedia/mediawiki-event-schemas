@@ -4,11 +4,23 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const file = require('file');
 const path = require('path');
+const preq = require('preq');
 
 const assert = require('assert');
 const Ajv = require('ajv');
 
-const ajv = new Ajv({});
+const ajv = new Ajv({
+    schemaId: 'auto',
+    loadSchema: (uri) => {
+        return preq.get({ uri })
+        .then((content) => {
+            if (content.status !== 200) {
+                throw new Error(`Failed to load meta schema at ${uri}`);
+            }
+            ajv.addMetaSchema(JSON.parse(content.body), uri);
+        })
+    }
+});
 const baseDir = path.join(__dirname, '/../../jsonschema/');
 
 // Checks whether the schema contains each and every required property from the 'superschema'
@@ -79,7 +91,7 @@ describe('Json schema', () => {
             const schemaPath = path.join(path.relative(baseDir, dirPath), fileName);
             const schema = loadYaml(path.join(dirPath, fileName));
             describe('Schema ' + cropExtension(schemaPath), () => {
-                it('Must be valid JSON-Schema', () => ajv.validateSchema(schema, true));
+                it('Must be valid JSON-Schema', () => ajv.compileAsync(schema, true));
 
                 if (schemaPath === 'test/event/1.yaml') {
                     return;
