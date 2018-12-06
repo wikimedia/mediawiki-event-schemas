@@ -201,4 +201,5 @@ required:
   - page_namespace
   - rev_id
   - rev_timestamp
-# - performer - temporary till we deploy the code change
+  - performer
+
