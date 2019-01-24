@@ -17,7 +17,10 @@ describe('All schemas referenced from topics config must exist', () => {
         if (checked.indexOf(schemaName) === -1) {
             checked.push(schemaName);
             it(schemaName + ' should exist', () => {
-                assert.deepEqual(fs.exists(path.join(baseDir, topics[topicName].schema_name, '1.yaml')));
+                assert.strictEqual(
+                    fs.existsSync(path.join(baseDir, topics[topicName].schema_name, '1.yaml')),
+                    true
+                );
             });
         }
     });
