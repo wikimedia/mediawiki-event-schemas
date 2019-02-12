@@ -26,6 +26,9 @@ mediawiki.page-undelete:
 mediawiki.page-properties-change:
   schema_name: mediawiki/page/properties-change
 
+mediawiki.page-links-change:
+  schema_name: mediawiki/page/links-change
+
 mediawiki.page-restrictions-change:
   schema_name: mediawiki/page/restrictions-change
 
