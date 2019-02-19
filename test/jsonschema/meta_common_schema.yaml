@@ -1,6 +1,6 @@
 title: Meta Common Schema
 description: Used to validate that every schema contains a valid 'meta' property schema
-$schema: http://json-schema.org/draft-04/schema#
+$schema: /http:\/\/json-schema\.org\/draft-0\d\/schema#/
 type: object
 properties:
   meta:

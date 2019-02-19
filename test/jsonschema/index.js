@@ -54,6 +54,16 @@ assert.isSuperSchema = (schema, example, path, required) => {
         .forEach((key) =>
             assert.isSuperSchema(schema[key], example[key], path + '.' + key, example['required'])
         );
+    } else if (typeof example === 'string' &&
+            typeof schema === 'string' &&
+            /^\/.+\/$/.test(example)) {
+        if (!new RegExp(example.substring(1, example.length - 1)).test(schema)) {
+            throw new assert.AssertionError({
+                message: `Error at path: ${path}`,
+                expected: example,
+                actual: schema
+            });
+        }
     } else if (schema !== example) {
         throw new assert.AssertionError({
             message: `Error at path: ${path}`,
