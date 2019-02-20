@@ -100,7 +100,17 @@ describe('Json schema', () => {
         files.filter(isYamlJson).forEach((fileName) => {
             const schemaPath = path.join(path.relative(baseDir, dirPath), fileName);
             const schema = loadYaml(path.join(dirPath, fileName));
-            describe('Schema ' + cropExtension(schemaPath), () => {
+
+            // TODO: Temporary. For now we will only run tests on old-style schemas.
+            // As soon as tests for new-style schemas are ready we would enable them.
+            let testFunc = describe;
+            const schemaVersion = parseInt(/\/draft-(\d+)\//.exec(schema.$schema)[1], 10);
+            if (schemaVersion > 4) {
+                testFunc = describe.skip;
+            }
+
+            //if (schema.$schema === 'http://json-schema.org/draft-07/schema#')
+            testFunc('Schema ' + cropExtension(schemaPath), () => {
                 it('Must be valid JSON-Schema', () => ajv.compileAsync(schema, true));
 
                 if (schemaPath === 'test/event/1.yaml') {
