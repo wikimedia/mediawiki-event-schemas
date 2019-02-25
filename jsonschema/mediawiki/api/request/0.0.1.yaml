@@ -18,6 +18,7 @@ properties:
       uri:
         type: string
         format: uri-reference
+        maxLength: 8192
         description: the unique URI identifying the event / resource
       request_id:
         type: string
