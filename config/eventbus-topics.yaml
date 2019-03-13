@@ -9,6 +9,15 @@
 # allows it to be used by services outside of WMF production.
 #
 
+mediawiki.centralnotice.campaign-change:
+  schema_name: mediawiki/centralnotice/campaign/change
+
+mediawiki.centralnotice.campaign-create:
+  schema_name: mediawiki/centralnotice/campaign/create
+
+mediawiki.centralnotice.campaign-delete:
+  schema_name: mediawiki/centralnotice/campaign/delete
+
 mediawiki.page-create:
   # A page create is just a special case of revision create,
   # so we can reuse the same schema.
