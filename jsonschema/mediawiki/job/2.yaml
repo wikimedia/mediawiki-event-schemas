@@ -26,7 +26,6 @@ properties:
       request_id:
         description: The unique ID of the request that caused the event.
         type: string
-        pattern: '^[a-zA-Z0-9\-@]+$'
       id:
         description: The unique ID of this event; should match the dt field.
         type: string
