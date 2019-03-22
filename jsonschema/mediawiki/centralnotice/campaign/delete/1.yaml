@@ -130,13 +130,12 @@ properties:
       - banners
 
   summary:
-    description: The summary provided for campaign creation.
+    description: The summary provided for campaign deletion.
     type: string
 
 required:
   - meta
   - database
   - performer
-  - action
   - campaign_name
   - prior_state

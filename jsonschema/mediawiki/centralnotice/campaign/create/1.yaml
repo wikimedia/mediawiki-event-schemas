@@ -125,7 +125,6 @@ required:
   - meta
   - database
   - performer
-  - action
   - campaign_name
   - start_dt
   - end_dt
