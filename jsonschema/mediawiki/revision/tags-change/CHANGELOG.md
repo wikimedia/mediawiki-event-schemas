@@ -4,3 +4,6 @@
  ### Version 2
  - Removed `rev_content_changed` property.
 
+### Version 3
+ - Added `chronology_id` field.
+

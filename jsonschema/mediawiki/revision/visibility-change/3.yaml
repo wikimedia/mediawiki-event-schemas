@@ -1,0 +1,224 @@
+title: mediawiki/revision/visibility-change
+description: Represents a MW Revision Visibiilty Change event.
+$schema: http://json-schema.org/draft-04/schema#
+type: object
+properties:
+  ### Meta data object.  All events schemas should have this.
+  meta:
+    type: object
+    properties:
+      topic:
+        description: The queue topic name this message belongs to.
+        type: string
+        minLength: 1
+      schema_uri:
+        description: >
+          The URI identifying the jsonschema for this event.  This may be just
+          a short uri containing only the name and revision at the end of the
+          URI path.  e.g. schema_name/12345 is acceptable.  This field
+          is not required.
+        type: string
+      uri:
+        description: The unique URI identifying the event.
+        type: string
+        format: uri
+      request_id:
+        description: The unique ID of the request that caused the event.
+        type: string
+      id:
+        description: The unique ID of this event; should match the dt field.
+        type: string
+        pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
+      dt:
+        description: The time stamp of the event, in ISO8601 format.
+        type: string
+        format: date-time
+      domain:
+        description: The domain the event pertains to.
+        type: string
+        minLength: 1
+    required:
+      - topic
+      - uri
+      - id
+      - dt
+      - domain
+
+
+  ### Mediawiki entity fields.  All Mediawiki entity events should have these.
+  database:
+    description: The name of the wiki database this event belongs to.
+    type: string
+    minLength: 1
+
+  chronology_id:
+    description: Chonology Protector client ID.
+    type: string
+
+  performer:
+    description: Represents the user that performed this change.
+    type: object
+    properties:
+      user_id:
+        description: >
+          The user id that performed this change.  This is optional, and
+          will not be present for anonymous users.
+        type: integer
+      user_text:
+        description: The text representation of the user that performed this change.
+        type: string
+        minLength: 1
+      user_groups:
+        description: A list of the groups this user belongs to.  E.g. bot, sysop etc.
+        type: array
+        items:
+          type: string
+          minLength: 1
+      user_is_bot:
+        description: >
+          True if this user is considered to be a bot.  This is checked
+          via the $user->isBot() method, which considers both user_groups
+          and user permissions.
+        type: boolean
+      user_registration_dt:
+        description: >
+          The datetime of the user account registration.
+          Not present for anonymous users or if missing in the MW database.
+        type: string
+        format: date-time
+      user_edit_count:
+        description: >
+          The number of edits this user has made at the time this revision is created.
+          Not present for anonymous users.
+        type: integer
+        minimum: 0
+    required:
+      - user_text
+      - user_groups
+      - user_is_bot
+
+  comment:
+    description: The comment left by the user that performed this change.
+    type: string
+
+  parsedcomment:
+    description: >
+      The comment left by the user that performed this change
+      parsed into simple HTML. Optional
+    type: string
+
+  ### revision.* fields - all revision related events should have these.
+  page_id:
+    description: The page ID of the page this revision belongs to.
+    type: integer
+    minimum: 1
+
+  page_title:
+    description: The normalized title of the page this revision belongs to.
+    type: string
+    minLength: 1
+
+  page_namespace:
+    description: The namespace of the page this revision belongs to.
+    type: integer
+
+  rev_id:
+    description: The revision ID created by this event
+    type: integer
+    minimum: 0
+
+  rev_parent_id:
+    description: The parent revision of the revision that this event affects.
+    type: integer
+    minimum: 0
+
+  rev_timestamp:
+    description: >
+      The revision's creation time in ISO8601 format.  This field
+      does not end in '_dt' to better match the field name on the
+      Mediawiki revision table.
+    type: string
+    format: date-time
+
+  rev_sha1:
+    description: The sha1 of the revision text.
+    type: string
+
+  rev_len:
+    description: The length of the revision text in bytes.
+    type: integer
+
+  rev_minor_edit:
+    description: Flag identifying if the revision is minor.
+    type: boolean
+
+  rev_content_model:
+    description: The content model of the revision.
+    type: string
+
+  rev_content_format:
+    description: The content format of the revision.
+    type: string
+
+  page_is_redirect:
+    description: >
+      True if this revision is a redirect.  This
+      fact is ultimately represented by revision content containing
+      redirect wikitext.  If this revision is the head revision
+      of the page, then the page will also be a redirect.
+    type: boolean
+
+
+  ### revision visibility change specific fields.
+  visibility:
+    description: The visiblity state of this revision.
+    type: object
+    properties:
+      text:
+        description: Whether the revision's text is visible.
+        type: boolean
+      user:
+        description: Whether the author of the revision's text is visible.
+        type: boolean
+      comment:
+        description: Whether the comment of the revision is visible.
+        type: boolean
+    required:
+      - text
+      - user
+      - comment
+
+  prior_state:
+    description: >
+      The prior state of the entity before this event.  Revisions always have
+      visibility settings, so this object will always contain the visibility
+      settings for the revision before this event.
+    type: object
+    properties:
+      visibility:
+        description: The prior visiblity state of this revision.
+        type: object
+        properties:
+          text:
+            type: boolean
+          user:
+            type: boolean
+          comment:
+            type: boolean
+        required:
+          - text
+          - user
+          - comment
+
+
+required:
+  - meta
+  - database
+  - performer
+  - page_id
+  - page_title
+  - page_namespace
+  - rev_id
+  - rev_timestamp
+  - visibility
+  - prior_state
