@@ -100,6 +100,4 @@ required:
   - meta
   - database
   - type
-  - page_namespace
-  - page_title
   # TODO: add mediawiki_signature to required once producing it is deployed
