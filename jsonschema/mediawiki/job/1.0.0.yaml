@@ -1,6 +1,6 @@
-title: mediawiki/api/request
-description: A single request to the MediaWiki Action API (api.php)
-$id: /mediawiki/api/request/0.0.1
+title: mediawiki/job
+description: Represents a job in Mediawiki JobQueue.
+$id: /mediawiki/job/1.0.0
 $schema: https://json-schema.org/draft-07/schema#
 type: object
 properties:
@@ -12,6 +12,7 @@ properties:
       a short uri containing only the name and revision at the end of the
       URI path.  e.g. /schema_name/12345 is acceptable. This often will
       (and should) match the schema's $id field.
+  ### Meta data object.  All events schemas should have this.
   meta:
     type: object
     properties:
@@ -28,7 +29,6 @@ properties:
         pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
         maxLength: 36
         description: the unique ID of this event; should match the dt field
-      # -- ApiAction .ts
       dt:
         type: string
         format: date-time
@@ -48,47 +48,60 @@ properties:
       - domain
       - stream
 
-  # http request/response info
-  http:
-    type: object
-    description: Information about the HTTP request that generated this event.
-    properties:
-      method:
-        type: string
-        description: The HTTP request method (GET, POST, etc.)
-      client_ip:
-        type: string
-        description: The http client's IP address
-      request_headers:
-        type: object
-        description: Request headers sent by the client.
-        additionalProperties:
-          type: string
-
-  # event-specific fields
-
-  # -- ApiAction .wiki
   database:
-    type: string
     description: The name of the wiki database this event belongs to.
+    type: string
     minLength: 1
 
-  backend_time_ms:
-    type: integer
-    description: Elapsed milliseconds to process request as measured by MediaWiki
+  type:
+    description: type of the job
+    type: string
 
-  api_error_codes:
-    type: array
-    description: >
-      List of error codes for any errors encountered, e.g. 'apierror-missingparam'
-      If this field is missing or empty, no errors were encountered.
-    items:
-      type: string
+  page_namespace:
+    description: the namespace of the page that the job was triggered for
+    type: integer
+
+  page_title:
+    description: the title of the page that the job was triggered for
+    type: string
+    minLength: 1
+
+  delay_until:
+    description: don't execute the job until a particular time
+    type: string
+    format: date-time
+
+  sha1:
+    description: unique ID of the job derived from the deduplication info
+    type: string
+
+  # Deduplication information
+  root_event:
+    type: object
+    description: Unique identifier of the root event that triggered this event creation
+    properties:
+      dt:
+        description: the timestamp of the root event, in ISO8601 format
+        type: string
+        format: date-time
+      signature:
+        type: string
+        description: the unique signature of root event
+    required:
+      - dt
+      - signature
+
+  mediawiki_signature:
+    description: The cryptograthic signature of the event baed on MW SecretKey
+    type: string
 
   params:
+    description: various parameters speific to a particular job
     type: object
-    description: >
-      Request parameters. These might come from http query string,
-      or from the POST body. Sensitive params are redacted.
-    additionalProperties:
-      type: string
+
+required:
+  - $schema
+  - meta
+  - database
+  - type
+  # TODO: add mediawiki_signature to required once producing it is deployed

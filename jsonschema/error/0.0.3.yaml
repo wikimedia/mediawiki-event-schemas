@@ -1,6 +1,6 @@
-title: test/event
-description: Schema used for simple tests
-$id: /test/event/0.0.2
+title: error
+description: Represents an error event
+$id: /error/0.0.3
 $schema: https://json-schema.org/draft-07/schema#
 type: object
 properties:
@@ -46,8 +46,25 @@ properties:
       - dt
       - domain
   # event-specific fields
-  test:
+  emitter_id:
     type: string
-    default: default test value
-examples:
-  - {"$schema": "/test/event/0.0.2", "meta": {"stream": "test.event", "id": "12345678-1234-5678-1234-567812345678", "dt": "2019-01-01T00:00:00Z", "domain": "wikimedia.org"}, "test": "specific test value"}
+    description: identifies the entity where a fatal failure occured
+  raw_event:
+    type: string
+    description: string encoded original event
+  message:
+    type: string
+    description: message describing an error
+  stack:
+    type: string
+    description: stack trace of the error (optional)
+  triggered_by:
+    type: string
+    description: >
+      comma-separated list of event descriptions in `<topic>:<uri>` format,
+      that represent a chain of events that caused this event to be emitted.
+required:
+  - meta
+  - emitter_id
+  - raw_event
+  - message

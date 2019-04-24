@@ -1,0 +1,171 @@
+title: mediawiki/page/undelete
+description: Represents a MW Page Undelete (restore) event.
+$id: /mediawiki/page/undelete/1.0.0
+$schema: https://json-schema.org/draft-07/schema#
+type: object
+properties:
+  # global event fields
+  $schema:
+    type: string
+    description: >
+      The URI identifying the jsonschema for this event. This may be just
+      a short uri containing only the name and revision at the end of the
+      URI path.  e.g. /schema_name/12345 is acceptable. This often will
+      (and should) match the schema's $id field.
+  ### Meta data object.  All events schemas should have this.
+  meta:
+    type: object
+    properties:
+      uri:
+        type: string
+        format: uri-reference
+        maxLength: 8192
+        description: the unique URI identifying the event / resource
+      request_id:
+        type: string
+        description: The unique ID of the request that caused the event.
+      id:
+        type: string
+        pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
+        maxLength: 36
+        description: the unique ID of this event; should match the dt field
+      # -- ApiAction .ts
+      dt:
+        type: string
+        format: date-time
+        maxLength: 26
+        description: the time stamp of the event, in ISO8601 format
+      domain:
+        type: string
+        description: the domain the event pertains to
+        minLength: 1
+      stream:
+        type: string
+        description: The name of the stream/queue that this event belongs in.
+        minLength: 1
+    required:
+      - id
+      - dt
+      - domain
+      - stream
+
+  ### Mediawiki entity fields.  All Mediawiki entity events should have these.
+  database:
+    description: The name of the wiki database this event belongs to.
+    type: string
+    minLength: 1
+
+  performer:
+    description: Represents the user that performed this change.
+    type: object
+    properties:
+      user_id:
+        description: >
+          The user id that performed this change.  This is optional, and
+          will not be present for anonymous users.
+        type: integer
+      user_text:
+        description: The text representation of the user that performed this change.
+        type: string
+        minLength: 1
+      user_groups:
+        description: A list of the groups this user belongs to.  E.g. bot, sysop etc.
+        type: array
+        items:
+          type: string
+          minLength: 1
+      user_is_bot:
+        description: >
+          True if this user is considered to be a bot.  This is checked
+          via the $user->isBot() method, which considers both user_groups
+          and user permissions.
+        type: boolean
+      user_registration_dt:
+        description: >
+          The datetime of the user account registration.
+          Not present for anonymous users or if missing in the MW database.
+        type: string
+        format: date-time
+      user_edit_count:
+        description: >
+          The number of edits this user has made at the time this revision is created.
+          Not present for anonymous users.
+        type: integer
+        minimum: 0
+    required:
+      - user_text
+      - user_groups
+      - user_is_bot
+
+  comment:
+    description: The comment left by the user that performed this change.
+    type: string
+
+  ### Since mediawiki.page-undelete v2
+  parsedcomment:
+    description: >
+      The comment left by the user that performed this change
+      parsed into simple HTML. Optional
+    type: string
+
+  ### page entity fields - all page related events should have these.
+  page_id:
+    description: The page ID of the moved page.
+    type: integer
+    minimum: 1
+
+  page_title:
+    description: The normalized title of the page.
+    type: string
+    minLength: 1
+
+  page_namespace:
+    type: integer
+
+  page_is_redirect:
+    description: >
+      True if this page is currently a redirect page.  This
+      fact is ultimately represented by revision content containing
+      redirect wikitext.  If rev_id's content has redirect wikitext,
+      then this page is a redirect.  Note that this state is also
+      stored on the Mediawiki page table.
+    type: boolean
+
+  rev_id:
+    description: >
+      The head revision for this page at the time of this event. Head
+      rev_id doesn't change during a restore, so this should be the same
+      rev_id that this page had when it was deleted.
+    type: integer
+    minimum: 0
+
+
+  ### page undelete specific fields.
+  prior_state:
+    description: >
+      The prior state of the entity before this event. If a top level entity
+      field is not present in this object, then its value has not changed
+      since the prior event.  If prior_state itself is not present, then
+      this event had no relevant prior state, indicating that it is probably
+      the first time this type has been emitted for this entity.
+      For page undeletes, prior_state will be absent unless the page_id is no
+      longer the same as the page_id it had before it was deleted.
+    type: object
+    properties:
+      page_id:
+        description: The page ID before this restore as it was in the archive table.
+        type: integer
+        minimum: 1
+    required:
+      - page_id
+
+required:
+  - $schema
+  - meta
+  - database
+  - performer
+  - page_id
+  - page_title
+  - page_namespace
+  - page_is_redirect
+  - rev_id
