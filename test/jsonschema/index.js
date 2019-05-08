@@ -109,7 +109,7 @@ describe('Json schema', () => {
                 testFunc = describe.skip;
             }
 
-            //if (schema.$schema === 'https://json-schema.org/draft-07/schema#')
+            //if (schema.$schema === 'http://json-schema.org/draft-07/schema#')
             testFunc('Schema ' + cropExtension(schemaPath), () => {
                 it('Must be valid JSON-Schema', () => ajv.compileAsync(schema, true));
 
