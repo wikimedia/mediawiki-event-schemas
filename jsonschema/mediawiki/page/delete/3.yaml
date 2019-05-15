@@ -26,7 +26,7 @@ properties:
         description: The unique ID of the request that caused the event.
         type: string
       id:
-        description: The unique ID of this event; should match the dt field.
+        description: The unique ID of this event.
         type: string
         pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
       dt:
