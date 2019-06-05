@@ -54,6 +54,10 @@ properties:
     type: string
     minLength: 1
 
+  chronology_id:
+    description: Chonology Protector client ID.
+    type: string
+
   performer:
     description: >
       Represents the user that performed the tagging when the tagging is
