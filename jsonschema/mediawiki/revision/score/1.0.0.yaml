@@ -1,0 +1,211 @@
+title: mediawiki/revision/score
+description: Represents a MW Revision Score event (from ORES).
+$id: /mediawiki/revision/score/1.0.0
+$schema: https://json-schema.org/draft-07/schema#
+type: object
+properties:
+  # global event fields
+  $schema:
+    type: string
+    description: >
+      The URI identifying the jsonschema for this event. This may be just
+      a short uri containing only the name and revision at the end of the
+      URI path.  e.g. /schema_name/12345 is acceptable. This often will
+      (and should) match the schema's $id field.
+  ### Meta data object.  All events schemas should have this.
+  meta:
+    type: object
+    properties:
+      uri:
+        type: string
+        format: uri-reference
+        maxLength: 8192
+        description: the unique URI identifying the event / resource
+      request_id:
+        type: string
+        description: The unique ID of the request that caused the event.
+      id:
+        type: string
+        pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
+        maxLength: 36
+        description: the unique ID of this event; should match the dt field
+      dt:
+        type: string
+        format: date-time
+        maxLength: 26
+        description: the time stamp of the event, in ISO8601 format
+      domain:
+        type: string
+        description: the domain the event pertains to
+        minLength: 1
+      stream:
+        type: string
+        description: The name of the stream/queue that this event belongs in.
+        minLength: 1
+    required:
+      - id
+      - dt
+      - domain
+      - stream
+
+  database:
+    description: The name of the wiki database this event belongs to.
+    type: string
+
+  page_id:
+    description: The page ID of the page this revision belongs to.
+    type: integer
+    minimum: 1
+
+  page_title:
+    description: The normalized title of the page this revision belongs to.
+    type: string
+
+  page_namespace:
+    description: The namespace of the page this revision belongs to.
+    type: integer
+
+  rev_id:
+    description: The revision ID created by this event
+    type: integer
+    minimum: 0
+
+  rev_parent_id:
+    description: The parent revision of the revision that this event affects.
+    type: integer
+    minimum: 0
+
+  rev_timestamp:
+    description: >
+      The revision's creation time in ISO8601 format.  This field
+      does not end in '_dt' to better match the field name on the
+      Mediawiki revision table.
+    type: string
+    format: date-time
+
+  performer:
+    description: Represents the user that performed this change.
+    type: object
+    properties:
+      user_id:
+        description: >
+          The user id that performed this change.  This is optional, and
+          will not be present for anonymous users.
+        type: integer
+      user_text:
+        description: The text representation of the user that performed this change.
+        type: string
+        minLength: 1
+      user_groups:
+        description: A list of the groups this user belongs to.  E.g. bot, sysop etc.
+        type: array
+        items:
+          type: string
+          minLength: 1
+      user_is_bot:
+        description: >
+          True if this user is considered to be a bot.  This is checked
+          via the $user->isBot() method, which considers both user_groups
+          and user permissions.
+        type: boolean
+      user_registration_dt:
+        description: >
+          The datetime of the user account registration.
+          Not present for anonymous users or if missing in the MW database.
+        type: string
+        format: date-time
+      user_edit_count:
+        description: >
+          The number of edits this user has made at the time this revision is created.
+          Not present for anonymous users.
+        type: integer
+        minimum: 0
+    required:
+    - user_text
+    - user_groups
+    - user_is_bot
+
+  scores:
+    description: >
+      List of ORES score objects. Each model here was used to score this revision.  Example:
+      {
+        "model_name": "awesomeness",
+        "model_version": "1.0.1",
+        "prediction": ["yes", "mostly"],
+        "probability": [
+          {"name": "yes",    "value": 0.99},
+          {"name": "mostly", "value": 0.90},
+          {"name": "hardly", "value": 0.01}
+        ]
+      }
+    type: array
+    items:
+      type: object
+      properties:
+        model_name:
+          description: The name of the model used for this score.
+          type: string
+        model_version:
+          description: The version of the model used for this score.
+          type: string
+        prediction:
+          description: A list of predictions made by this model.
+          type: array
+          items:
+            type: string
+        probability:
+          description: >
+            A list of probabilities made by this model.
+            Each element is an object with a probability 'name' and a probability 'value'.
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: number
+            required:
+              - name
+              - value
+      required:
+        - model_name
+        - model_version
+        - prediction
+        - probability
+  errors:
+    description: >
+      Errors that occured when models attempted to score this revision.
+    type: array
+    items:
+      type: object
+      properties:
+        model_name:
+          description: The name of the model that encountered this error.
+          type: string
+        model_version:
+          description: The version of the model that encountered this error.
+          type: string
+        type:
+          description: The short name of this error
+          type: string
+        message:
+          description: A human-readable explanation of what went wrong
+          type: string
+      required:
+        - model_name
+        - model_version
+        - type
+        - message
+
+required:
+  - $schema
+  - meta
+  - database
+  - page_id
+  - page_title
+  - page_namespace
+  - rev_id
+  - rev_timestamp
+  - performer
+

@@ -3,7 +3,7 @@ description: >
   A set of requests made by CirrusSearch to ElasticSearch
   for a single PHP execution context.
 $id: /mediawiki/cirrussearch/request/0.0.1
-$schema: http://json-schema.org/draft-07/schema#
+$schema: https://json-schema.org/draft-07/schema#
 type: object
 additionalProperties: false
 properties:
