@@ -89,6 +89,7 @@ properties:
           Not present for anonymous users or if missing in the MW database.
         type: string
         format: date-time
+        maxLength: 26
       user_edit_count:
         description: >
           The number of edits this user has made at the time this revision is created.
@@ -142,6 +143,7 @@ properties:
       Mediawiki revision table.
     type: string
     format: date-time
+    maxLength: 26
 
   rev_sha1:
     description: The sha1 of the revision text.

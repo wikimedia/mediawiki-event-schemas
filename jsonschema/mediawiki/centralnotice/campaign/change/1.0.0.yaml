@@ -86,6 +86,7 @@ properties:
           Not present if missing in the MW database.
         type: string
         format: date-time
+        maxLength: 26
       user_edit_count:
         description: >
           The number of edits this user has made at the time this revision is created.
@@ -105,10 +106,12 @@ properties:
     description: The campaign's start time, in ISO8601 format.
     type: string
     format: date-time
+    maxLength: 26
   end_dt:
     description: The campaign's end time, in ISO8601 format.
     type: string
     format: date-time
+    maxLength: 26
   enabled:
     description: The campaign's enabled status.
     type: boolean
@@ -129,10 +132,12 @@ properties:
         description: The campaign's previous start time, in ISO8601 format.
         type: string
         format: date-time
+        maxLength: 26
       end_dt:
         description: The campaign's previous end time, in ISO8601 format.
         type: string
         format: date-time
+        maxLength: 26
       enabled:
         description: The campaign's previous enabled status.
         type: boolean

@@ -70,6 +70,7 @@ properties:
     description: don't execute the job until a particular time
     type: string
     format: date-time
+    maxLength: 26
 
   sha1:
     description: unique ID of the job derived from the deduplication info
@@ -84,6 +85,7 @@ properties:
         description: the timestamp of the root event, in ISO8601 format
         type: string
         format: date-time
+        maxLength: 26
       signature:
         type: string
         description: the unique signature of root event
