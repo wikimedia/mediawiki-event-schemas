@@ -136,9 +136,8 @@ properties:
       The new restrictions applied to the page. If one of the properties is present,
       that means the specific action has been restricted to a member of a specific
       user group. An empty string means that a particular action is not restricted.
-    patternProperties:
-      '^.+$':
-        type: string
+    additionalProperties:
+      type: string
     type: object
 
   reason:
