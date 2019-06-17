@@ -1,6 +1,6 @@
-title: mediawiki/centralnotice/campaign-create
+title: mediawiki/centralnotice/campaign/create
 description: Represents the creation of a MW CentralNotice banner campaign
-$id: /mediawiki/centralnotice/campaign-create/1.0.0
+$id: /mediawiki/centralnotice/campaign/create/1.0.0
 $schema: https://json-schema.org/draft-07/schema#
 type: object
 properties:

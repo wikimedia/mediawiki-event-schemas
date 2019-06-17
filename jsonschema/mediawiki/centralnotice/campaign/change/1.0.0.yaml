@@ -1,6 +1,6 @@
-title: mediawiki/centralnotice/campaign-change
+title: mediawiki/centralnotice/campaign/change
 description: Represents a change in the settings of a MW CentralNotice banner campaign
-$id: /mediawiki/centralnotice/campaign-change/1.0.0
+$id: /mediawiki/centralnotice/campaign/change/1.0.0
 $schema: https://json-schema.org/draft-07/schema#
 type: object
 properties:
