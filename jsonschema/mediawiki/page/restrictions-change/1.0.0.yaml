@@ -131,14 +131,14 @@ properties:
 
 
   ### page restrictions change specific fields.
-  page_restrictions: &page_restrictions_schema
+  page_restrictions:
     description: >
       The new restrictions applied to the page. If one of the properties is present,
       that means the specific action has been restricted to a member of a specific
       user group. An empty string means that a particular action is not restricted.
+    type: object
     additionalProperties:
       type: string
-    type: object
 
   reason:
     type: string
@@ -151,7 +151,10 @@ properties:
       since the prior event.
     type: object
     properties:
-      page_restrictions: *page_restrictions_schema
+      page_restrictions:
+        type: object
+        additionalProperties:
+          type: string
 
 required:
   - $schema
