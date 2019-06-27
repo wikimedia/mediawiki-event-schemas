@@ -5,9 +5,20 @@
   "$schema": "https://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
+    "test": {
+      "type": "string",
+      "default": "default value"
+    },
+    "test_map": {
+      "description": "We want to support 'map' types using additionalProperties to specify the value types.  (Keys are always strings.)\n",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
     "$schema": {
       "type": "string",
-      "description": "The URI identifying the jsonschema for this event. This may be just a short uri containing only the name and revision at the end of the URI path.  e.g. /schema_name/12345 is acceptable. This often will (and should) match the schema's $id field.\n"
+      "description": "The URI identifying the jsonschema for this event. This should be a short uri containing only the name and revision at the end of the URI path.  e.g. /schema_name/1.0.0 is acceptable. This often will (and should) match the schema's $id field.\n"
     },
     "meta": {
       "type": "object",
@@ -48,19 +59,8 @@
       "required": [
         "id",
         "dt",
-        "domain"
+        "stream"
       ]
-    },
-    "test": {
-      "type": "string",
-      "default": "default value"
-    },
-    "test_map": {
-      "description": "We want to support 'map' types using additionalProperties to specify the value types.  (Keys are always strings.)\n",
-      "type": "object",
-      "additionalProperties": {
-        "type": "string"
-      }
     }
   },
   "examples": [
