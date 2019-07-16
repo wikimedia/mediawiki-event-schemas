@@ -2,14 +2,14 @@
   "private": true,
   "scripts": {
     "test": "mocha",
-    "postinstall": "$(npm bin)/jsonschema-tools install-git-hook -v -c yaml,json -u $(pwd)/jsonschema/"
+    "postinstall": "$(npm bin)/jsonschema-tools install-git-hook -v -c yaml,json -u ./jsonschema/"
   },
   "devDependencies": {
-    "@wikimedia/jsonschema-tools": "https://github.com/wikimedia/jsonschema-tools.git",
+    "@wikimedia/jsonschema-tools": "^0.0.7",
+    "mocha": "^6.0.0",
     "ajv": "^6.9.1",
     "file": "^0.2.2",
     "js-yaml": "^3.12.1",
-    "mocha": "^6.0.0",
     "preq": "^0.5.7"
   }
 }

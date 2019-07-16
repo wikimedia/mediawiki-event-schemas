@@ -21,27 +21,27 @@ properties:
         type: string
         format: uri-reference
         maxLength: 8192
-        description: the unique URI identifying the event / resource
+        description: Unique URI identifying the event / resource
       request_id:
         type: string
-        description: The unique ID of the request that caused the event.
+        description: Unique ID of the request that caused the event=
       id:
         type: string
         pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
         maxLength: 36
-        description: the unique ID of this event.
+        description: Unique ID of this event
       dt:
         type: string
         format: date-time
         maxLength: 26
-        description: the time stamp of the event, in ISO8601 format
+        description: Time stamp of the event, in ISO-8601 format
       domain:
         type: string
-        description: the domain the event pertains to
+        description: Domain the event pertains to
         minLength: 1
       stream:
         type: string
-        description: The name of the stream/queue that this event belongs in.
+        description: Name of the stream/queue that this event belongs in
         minLength: 1
     required:
       - id
