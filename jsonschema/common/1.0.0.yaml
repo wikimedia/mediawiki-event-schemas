@@ -30,7 +30,7 @@ properties:
       dt:
         type: string
         format: date-time
-        maxLength: 26
+        maxLength: 128
         description: 'Time stamp of the event, in ISO-8601 format'
       domain:
         type: string

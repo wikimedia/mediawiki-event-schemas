@@ -32,7 +32,7 @@ properties:
       dt:
         type: string
         format: date-time
-        maxLength: 26
+        maxLength: 128
         description: the time stamp of the event, in ISO8601 format
       domain:
         type: string
@@ -92,7 +92,7 @@ properties:
           Not present for anonymous users or if missing in the MW database.
         type: string
         format: date-time
-        maxLength: 26
+        maxLength: 128
       user_edit_count:
         description: >
           The number of edits this user has made at the time this revision is created.
@@ -146,7 +146,7 @@ properties:
       Mediawiki revision table.
     type: string
     format: date-time
-    maxLength: 26
+    maxLength: 128
 
   rev_sha1:
     description: The sha1 of the revision text.

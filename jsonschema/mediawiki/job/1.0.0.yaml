@@ -32,7 +32,7 @@ properties:
       dt:
         type: string
         format: date-time
-        maxLength: 26
+        maxLength: 128
         description: the time stamp of the event, in ISO8601 format
       domain:
         type: string
@@ -70,7 +70,7 @@ properties:
     description: don't execute the job until a particular time
     type: string
     format: date-time
-    maxLength: 26
+    maxLength: 128
 
   sha1:
     description: unique ID of the job derived from the deduplication info
@@ -85,7 +85,7 @@ properties:
         description: the timestamp of the root event, in ISO8601 format
         type: string
         format: date-time
-        maxLength: 26
+        maxLength: 128
       signature:
         type: string
         description: the unique signature of root event
