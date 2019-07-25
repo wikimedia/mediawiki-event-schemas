@@ -55,7 +55,7 @@
         "dt": {
           "type": "string",
           "format": "date-time",
-          "maxLength": 26,
+          "maxLength": 128,
           "description": "Time stamp of the event, in ISO-8601 format"
         },
         "domain": {
@@ -95,7 +95,7 @@
       "swift_user": "analytics:admin",
       "swift_container": "ottotest17",
       "swift_object_prefix": "2019-07-25T14:32:21.739219Z/location_test00",
-      "swift_object_urls": [
+      "swift_object_uris": [
         "https://ms-fe.svc.eqiad.wmnet/v1/AUTH_analytics/ottotest17/2019-07-25T14:32:21.739219Z/location_test00/a",
         "https://ms-fe.svc.eqiad.wmnet/v1/AUTH_analytics/ottotest17/2019-07-25T14:32:21.739219Z/location_test00/b"
       ]

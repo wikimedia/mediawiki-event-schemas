@@ -26,7 +26,7 @@ properties:
     type: string
     description: >
       The URI identifying the jsonschema for this event. This should be a short
-      uri containing only the name and revision at the end of the URI path.
+      uri containing only the name and revision at the end of the URI path. 
       e.g. /schema_name/1.0.0 is acceptable. This often will (and should) match
       the schema's $id field.
   meta:
@@ -79,7 +79,7 @@ examples:
     swift_user: 'analytics:admin'
     swift_container: ottotest17
     swift_object_prefix: '2019-07-25T14:32:21.739219Z/location_test00'
-    swift_object_urls:
+    swift_object_uris:
       - >-
         https://ms-fe.svc.eqiad.wmnet/v1/AUTH_analytics/ottotest17/2019-07-25T14:32:21.739219Z/location_test00/a
       - >-
