@@ -1,0 +1,41 @@
+title: swift/upload/complete
+description: Schema used for simple tests
+$id: /swift/upload/complete/1.0.0
+$schema: https://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+properties:
+  $ref: /common/1.0.0#/properties
+
+  # event-specific fields
+
+  upload_user:
+    description: User that initiated the upload
+    type: string
+
+  swift_user:
+    description: Swift account user, e.g. analytics:admin
+    type: string
+
+  swift_container:
+    description: Swift container in which files were uploaded
+    type: string
+
+  swift_object_prefix:
+    description: Swift object prefix used when uploading a directory
+    type: string
+
+  swift_object_uris:
+    description: List of object URIs that were uploaded
+    type: array
+    items:
+      type: string
+
+required:
+  - $schema
+  - meta
+  - swift_user
+  - swift_container
+
+examples:
+  - {"$schema": "/swift/upload/complete/1.0.0", "meta": {"dt": "2019-07-25T14:32:21.739219Z", "id": "fa59b0f4-e0d0-4b92-bbb9-d28f506fd76f", "stream": "swift.upload-complete", "uri": "https://ms-fe.svc.eqiad.wmnet/v1/AUTH_analytics/ottotest17?prefix=2019-07-25T14:32:21.739219Z/location_test00"}, "upload_user": "analytics", "swift_user": "analytics:admin", "swift_container": "ottotest17", "swift_object_prefix": "2019-07-25T14:32:21.739219Z/location_test00", "swift_object_urls": ["https://ms-fe.svc.eqiad.wmnet/v1/AUTH_analytics/ottotest17/2019-07-25T14:32:21.739219Z/location_test00/a", "https://ms-fe.svc.eqiad.wmnet/v1/AUTH_analytics/ottotest17/2019-07-25T14:32:21.739219Z/location_test00/b"]}
