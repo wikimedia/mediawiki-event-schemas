@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "test": "mocha",
-    "postinstall": "$(npm bin)/jsonschema-tools install-git-hook -v -c yaml,json -u ./jsonschema/"
+    "postinstall": "npm run install-jsonschema-tools-hook",
+    "install-jsonschema-tools-hook": "$(npm bin)/jsonschema-tools install-git-hook -v -c yaml,json -u ./jsonschema/"
   },
   "devDependencies": {
     "@wikimedia/jsonschema-tools": "^0.0.7",
