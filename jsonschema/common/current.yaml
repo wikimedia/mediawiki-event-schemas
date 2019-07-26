@@ -47,3 +47,7 @@ properties:
       - id
       - dt
       - stream
+
+required:
+  - $schema
+  - meta

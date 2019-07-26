@@ -11,6 +11,11 @@
     },
     "meta": {
       "type": "object",
+      "required": [
+        "id",
+        "dt",
+        "stream"
+      ],
       "properties": {
         "uri": {
           "type": "string",
@@ -44,12 +49,11 @@
           "description": "Name of the stream/queue that this event belongs in",
           "minLength": 1
         }
-      },
-      "required": [
-        "id",
-        "dt",
-        "stream"
-      ]
+      }
     }
-  }
+  },
+  "required": [
+    "$schema",
+    "meta"
+  ]
 }

@@ -6,7 +6,7 @@
     "install-jsonschema-tools-hook": "$(npm bin)/jsonschema-tools install-git-hook -v -c yaml,json -u ./jsonschema/"
   },
   "devDependencies": {
-    "@wikimedia/jsonschema-tools": "^0.0.7",
+    "@wikimedia/jsonschema-tools": "^0.1.0",
     "mocha": "^6.0.0",
     "ajv": "^6.9.1",
     "file": "^0.2.2",

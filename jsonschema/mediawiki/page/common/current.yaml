@@ -1,0 +1,46 @@
+title: mediawiki/page/common
+description: Common schema fields for all Mediawiki page entities
+$id: /mediawiki/page/common/1.0.0
+$schema: 'https://json-schema.org/draft-07/schema#'
+type: object
+
+allOf:
+    ### Mediawiki entity fields.
+  - $ref: /mediawiki/common/1.0.0
+    ### page entity fields
+  - properties:
+
+      page_id:
+        description: The page ID of the page which properties has been changed.
+        type: integer
+        minimum: 1
+
+      page_title:
+        description: The normalized title of the page.
+        type: string
+        minLength: 1
+
+      page_namespace:
+        description: The namespace ID this page belongs to.
+        type: integer
+
+      page_is_redirect:
+        description: >
+          True if this page is currently a redirect page.  This
+          fact is ultimately represented by revision content containing
+          redirect wikitext.  If rev_id's content has redirect wikitext,
+          then this page is a redirect.  Note that this state is also
+          stored on the Mediawiki page table.
+        type: boolean
+
+      rev_id:
+        description: The head revision of the page which properties has been changed.
+        type: integer
+        minimum: 0
+
+    required:
+      - page_id
+      - page_title
+      - page_namespace
+      - page_is_redirect
+      - rev_id
