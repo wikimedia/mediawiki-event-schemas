@@ -1,13 +1,18 @@
 {
-  "title": "mediawiki/common",
-  "description": "Common schema fields for all Mediawiki entities",
-  "$id": "/mediawiki/common/1.0.0",
+  "title": "mediawiki/page/undelete",
+  "description": "Represents a MW Page Undelete (restore) event.",
+  "$id": "/mediawiki/page/undelete/1.0.0",
   "$schema": "https://json-schema.org/draft-07/schema#",
   "type": "object",
   "required": [
     "$schema",
     "database",
-    "meta"
+    "meta",
+    "page_id",
+    "page_is_redirect",
+    "page_namespace",
+    "page_title",
+    "rev_id"
   ],
   "properties": {
     "$schema": {
@@ -101,6 +106,55 @@
           "description": "The number of edits this user has made at the time this revision is created. Not present for anonymous users.\n",
           "type": "integer",
           "minimum": 0
+        }
+      }
+    },
+    "page_id": {
+      "description": "The page ID of the page which properties has been changed.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "page_title": {
+      "description": "The normalized title of the page.",
+      "type": "string",
+      "minLength": 1
+    },
+    "page_namespace": {
+      "description": "The namespace ID this page belongs to.",
+      "type": "integer"
+    },
+    "page_is_redirect": {
+      "description": "True if this page is currently a redirect page.  This fact is ultimately represented by revision content containing redirect wikitext.  If rev_id's content has redirect wikitext, then this page is a redirect.  Note that this state is also stored on the Mediawiki page table.\n",
+      "type": "boolean"
+    },
+    "rev_id": {
+      "description": "The head revision of the page which properties has been changed.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "chronology_id": {
+      "description": "Chonology Protector client ID.",
+      "type": "string"
+    },
+    "comment": {
+      "description": "The comment left by the user that performed this change.",
+      "type": "string"
+    },
+    "parsedcomment": {
+      "description": "The comment left by the user that performed this change parsed into simple HTML. Optional\n",
+      "type": "string"
+    },
+    "prior_state": {
+      "description": "The prior state of the entity before this event. If a top level entity field is not present in this object, then its value has not changed since the prior event.  If prior_state itself is not present, then this event had no relevant prior state, indicating that it is probably the first time this type has been emitted for this entity. For page undeletes, prior_state will be absent unless the page_id is no longer the same as the page_id it had before it was deleted.\n",
+      "type": "object",
+      "required": [
+        "page_id"
+      ],
+      "properties": {
+        "page_id": {
+          "description": "The page ID before this restore as it was in the archive table.",
+          "type": "integer",
+          "minimum": 1
         }
       }
     }

@@ -5,6 +5,7 @@ $schema: 'https://json-schema.org/draft-07/schema#'
 type: object
 required:
   - $schema
+  - database
   - meta
   - page_id
   - page_is_redirect
@@ -33,7 +34,7 @@ properties:
         description: Unique URI identifying the event / resource
       request_id:
         type: string
-        description: Unique ID of the request that caused the event=
+        description: Unique ID of the request that caused the event
       id:
         type: string
         pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
@@ -101,7 +102,7 @@ properties:
   page_id:
     description: The page ID of the page which properties has been changed.
     type: integer
-    minimum: 1
+    minimum: 0
   page_title:
     description: The normalized title of the page.
     type: string

@@ -1,160 +1,139 @@
 title: mediawiki/page/delete
 description: Represents a MW Page Delete event.
 $id: /mediawiki/page/delete/1.0.0
-$schema: https://json-schema.org/draft-07/schema#
+$schema: 'https://json-schema.org/draft-07/schema#'
 type: object
+required:
+  - $schema
+  - database
+  - meta
+  - page_id
+  - page_is_redirect
+  - page_namespace
+  - page_title
+  - rev_id
 properties:
-  # global event fields
   $schema:
     type: string
     description: >
-      The URI identifying the jsonschema for this event. This may be just
-      a short uri containing only the name and revision at the end of the
-      URI path.  e.g. /schema_name/12345 is acceptable. This often will
-      (and should) match the schema's $id field.
-  ### Meta data object.  All events schemas should have this.
+      The URI identifying the jsonschema for this event. This should be a short
+      uri containing only the name and revision at the end of the URI path. 
+      e.g. /schema_name/1.0.0 is acceptable. This often will (and should) match
+      the schema's $id field.
   meta:
     type: object
+    required:
+      - id
+      - dt
+      - stream
     properties:
       uri:
         type: string
         format: uri-reference
         maxLength: 8192
-        description: the unique URI identifying the event / resource
+        description: Unique URI identifying the event / resource
       request_id:
         type: string
-        description: The unique ID of the request that caused the event.
+        description: Unique ID of the request that caused the event
       id:
         type: string
         pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
         maxLength: 36
-        description: the unique ID of this event; should match the dt field
-      # -- ApiAction .ts
+        description: Unique ID of this event
       dt:
         type: string
         format: date-time
         maxLength: 128
-        description: the time stamp of the event, in ISO8601 format
+        description: 'Time stamp of the event, in ISO-8601 format'
       domain:
         type: string
-        description: the domain the event pertains to
+        description: Domain the event pertains to
         minLength: 1
       stream:
         type: string
-        description: The name of the stream/queue that this event belongs in.
+        description: Name of the stream/queue that this event belongs in
         minLength: 1
-    required:
-      - id
-      - dt
-      - domain
-      - stream
-
-  ### Mediawiki entity fields.  All Mediawiki entity events should have these.
   database:
     description: The name of the wiki database this event belongs to.
     type: string
     minLength: 1
-
-  chronology_id:
-    description: Chonology Protector client ID.
-    type: string
-
   performer:
     description: Represents the user that performed this change.
     type: object
+    required:
+      - user_text
+      - user_groups
+      - user_is_bot
     properties:
       user_id:
         description: >
-          The user id that performed this change.  This is optional, and
-          will not be present for anonymous users.
+          The user id that performed this change.  This is optional, and will
+          not be present for anonymous users.
         type: integer
       user_text:
         description: The text representation of the user that performed this change.
         type: string
         minLength: 1
       user_groups:
-        description: A list of the groups this user belongs to.  E.g. bot, sysop etc.
+        description: 'A list of the groups this user belongs to.  E.g. bot, sysop etc.'
         type: array
         items:
           type: string
           minLength: 1
       user_is_bot:
         description: >
-          True if this user is considered to be a bot.  This is checked
-          via the $user->isBot() method, which considers both user_groups
-          and user permissions.
+          True if this user is considered to be a bot.  This is checked via the
+          $user->isBot() method, which considers both user_groups and user
+          permissions.
         type: boolean
       user_registration_dt:
         description: >
-          The datetime of the user account registration.
-          Not present for anonymous users or if missing in the MW database.
+          The datetime of the user account registration. Not present for
+          anonymous users or if missing in the MW database.
         type: string
         format: date-time
         maxLength: 128
       user_edit_count:
         description: >
-          The number of edits this user has made at the time this revision is created.
-          Not present for anonymous users.
+          The number of edits this user has made at the time this revision is
+          created. Not present for anonymous users.
         type: integer
         minimum: 0
-    required:
-      - user_text
-      - user_groups
-      - user_is_bot
-
-  comment:
-    description: The comment left by the user that performed this change.
-    type: string
-
-  ### Since mediawiki.page-delete v2
-  parsedcomment:
-    description: >
-      The comment left by the user that performed this change
-      parsed into simple HTML. Optional
-    type: string
-
-  ### page entity fields - all page related events should have these.
   page_id:
-    description: The page ID of the moved page.
+    description: The page ID of the page which properties has been changed.
     type: integer
-    minimum: 1
-
+    minimum: 0
   page_title:
     description: The normalized title of the page.
     type: string
     minLength: 1
-
   page_namespace:
     description: The namespace ID this page belongs to.
     type: integer
-
   page_is_redirect:
     description: >
-      True if this page is currently a redirect page.  This
-      fact is ultimately represented by revision content containing
-      redirect wikitext.  If rev_id's content has redirect wikitext,
-      then this page is a redirect.  Note that this state is also
-      stored on the Mediawiki page table.
+      True if this page is currently a redirect page.  This fact is ultimately
+      represented by revision content containing redirect wikitext.  If rev_id's
+      content has redirect wikitext, then this page is a redirect.  Note that
+      this state is also stored on the Mediawiki page table.
     type: boolean
-
   rev_id:
-    description: The head revision for this page at the time of this event.
+    description: The head revision of the page which properties has been changed.
     type: integer
     minimum: 0
-
-
-  ### page delete specific fields.
+  chronology_id:
+    description: Chonology Protector client ID.
+    type: string
+  comment:
+    description: The comment left by the user that performed this change.
+    type: string
+  parsedcomment:
+    description: >
+      The comment left by the user that performed this change parsed into simple
+      HTML. Optional
+    type: string
   rev_count:
     description: >
-      The number of revisions of this page at the time of this event.
-      During a delete, this number of revisions will be archived.
+      The number of revisions of this page at the time of this event. During a
+      delete, this number of revisions will be archived.
     type: integer
-
-required:
-  - $schema
-  - meta
-  - database
-  - performer
-  - page_id
-  - page_title
-  - page_namespace

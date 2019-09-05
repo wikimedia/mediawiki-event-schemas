@@ -10,7 +10,6 @@ allOf:
   - $ref: /common/1.0.0
     ### Mediawiki entity fields.
   - properties:
-
       database:
         description: The name of the wiki database this event belongs to.
         type: string
@@ -58,3 +57,5 @@ allOf:
           - user_text
           - user_groups
           - user_is_bot
+    required:
+      - database

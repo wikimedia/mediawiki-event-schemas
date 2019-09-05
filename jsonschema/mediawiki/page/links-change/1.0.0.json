@@ -1,13 +1,18 @@
 {
-  "title": "mediawiki/common",
-  "description": "Common schema fields for all Mediawiki entities",
-  "$id": "/mediawiki/common/1.0.0",
+  "title": "mediawiki/page/links-change",
+  "description": "Represents a MW Page Links Change event.",
+  "$id": "/mediawiki/page/links-change/1.0.0",
   "$schema": "https://json-schema.org/draft-07/schema#",
   "type": "object",
   "required": [
     "$schema",
     "database",
-    "meta"
+    "meta",
+    "page_id",
+    "page_is_redirect",
+    "page_namespace",
+    "page_title",
+    "rev_id"
   ],
   "properties": {
     "$schema": {
@@ -101,6 +106,63 @@
           "description": "The number of edits this user has made at the time this revision is created. Not present for anonymous users.\n",
           "type": "integer",
           "minimum": 0
+        }
+      }
+    },
+    "page_id": {
+      "description": "The page ID of the page which properties has been changed.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "page_title": {
+      "description": "The normalized title of the page.",
+      "type": "string",
+      "minLength": 1
+    },
+    "page_namespace": {
+      "description": "The namespace ID this page belongs to.",
+      "type": "integer"
+    },
+    "page_is_redirect": {
+      "description": "True if this page is currently a redirect page.  This fact is ultimately represented by revision content containing redirect wikitext.  If rev_id's content has redirect wikitext, then this page is a redirect.  Note that this state is also stored on the Mediawiki page table.\n",
+      "type": "boolean"
+    },
+    "rev_id": {
+      "description": "The head revision of the page which properties has been changed.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "removed_links": {
+      "description": "The old page links. This map would only contain the previous values of the links that were either removed or changed by this event. Links that were intact would not be present here. If the link was changed, its new value would be present in the 'added_links' object.\n",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "link": {
+            "description": "Link being removed",
+            "type": "string"
+          },
+          "external": {
+            "description": "Whether link is external",
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "added_links": {
+      "description": "The new page links. This map would only contain links that were either added or changed, links that were intact would not be present here. If the link was changed, its previous value would be present in the 'removed_links' object.\n",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "link": {
+            "description": "Link being added",
+            "type": "string"
+          },
+          "external": {
+            "description": "Whether link is external",
+            "type": "boolean"
+          }
         }
       }
     }

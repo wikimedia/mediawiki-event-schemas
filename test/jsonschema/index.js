@@ -105,7 +105,7 @@ describe('Json schema', () => {
             // As soon as tests for new-style schemas are ready we would enable them.
             let testFunc = describe;
             const schemaVersion = parseInt(/\/draft-(\d+)\//.exec(schema.$schema)[1], 10);
-            if (schemaVersion > 4) {
+            if (fileName.indexOf('current') >=0 || schemaVersion > 4) {
                 testFunc = describe.skip;
             }
 

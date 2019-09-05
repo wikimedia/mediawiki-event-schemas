@@ -6,6 +6,7 @@
   "type": "object",
   "required": [
     "$schema",
+    "database",
     "meta",
     "page_id",
     "page_is_redirect",
@@ -34,7 +35,7 @@
         },
         "request_id": {
           "type": "string",
-          "description": "Unique ID of the request that caused the event="
+          "description": "Unique ID of the request that caused the event"
         },
         "id": {
           "type": "string",
@@ -111,7 +112,7 @@
     "page_id": {
       "description": "The page ID of the page which properties has been changed.",
       "type": "integer",
-      "minimum": 1
+      "minimum": 0
     },
     "page_title": {
       "description": "The normalized title of the page.",

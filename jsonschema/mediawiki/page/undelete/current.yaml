@@ -1,0 +1,40 @@
+title: mediawiki/page/undelete
+description: Represents a MW Page Undelete (restore) event.
+$id: /mediawiki/page/undelete/1.0.0
+$schema: https://json-schema.org/draft-07/schema#
+type: object
+allOf:
+  - $ref: /mediawiki/page/common/1.0.0
+  - properties:
+      chronology_id:
+        description: Chonology Protector client ID.
+        type: string
+
+      comment:
+        description: The comment left by the user that performed this change.
+        type: string
+
+      parsedcomment:
+        description: >
+          The comment left by the user that performed this change
+          parsed into simple HTML. Optional
+        type: string
+
+      prior_state:
+        description: >
+          The prior state of the entity before this event. If a top level entity
+          field is not present in this object, then its value has not changed
+          since the prior event.  If prior_state itself is not present, then
+          this event had no relevant prior state, indicating that it is probably
+          the first time this type has been emitted for this entity.
+          For page undeletes, prior_state will be absent unless the page_id is no
+          longer the same as the page_id it had before it was deleted.
+        type: object
+        properties:
+          page_id:
+            description: The page ID before this restore as it was in the archive table.
+            type: integer
+            minimum: 1
+        required:
+          - page_id
+

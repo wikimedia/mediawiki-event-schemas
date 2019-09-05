@@ -1,13 +1,19 @@
 {
-  "title": "mediawiki/common",
-  "description": "Common schema fields for all Mediawiki entities",
-  "$id": "/mediawiki/common/1.0.0",
+  "title": "mediawiki/page/move",
+  "description": "Represents a MW Page Move event.",
+  "$id": "/mediawiki/page/move/1.0.0",
   "$schema": "https://json-schema.org/draft-07/schema#",
   "type": "object",
   "required": [
     "$schema",
     "database",
-    "meta"
+    "meta",
+    "page_id",
+    "page_is_redirect",
+    "page_namespace",
+    "page_title",
+    "prior_state",
+    "rev_id"
   ],
   "properties": {
     "$schema": {
@@ -99,6 +105,94 @@
         },
         "user_edit_count": {
           "description": "The number of edits this user has made at the time this revision is created. Not present for anonymous users.\n",
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "page_id": {
+      "description": "The page ID of the page which properties has been changed.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "page_title": {
+      "description": "The normalized title of the page.",
+      "type": "string",
+      "minLength": 1
+    },
+    "page_namespace": {
+      "description": "The namespace ID this page belongs to.",
+      "type": "integer"
+    },
+    "page_is_redirect": {
+      "description": "True if this page is currently a redirect page.  This fact is ultimately represented by revision content containing redirect wikitext.  If rev_id's content has redirect wikitext, then this page is a redirect.  Note that this state is also stored on the Mediawiki page table.\n",
+      "type": "boolean"
+    },
+    "rev_id": {
+      "description": "The head revision of the page which properties has been changed.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "comment": {
+      "description": "The comment left by the user that performed this change.",
+      "type": "string",
+      "minLength": 1
+    },
+    "parsedcomment": {
+      "description": "The comment left by the user that performed this change parsed into simple HTML. Optional\n",
+      "type": "string"
+    },
+    "prior_state": {
+      "description": "The prior state of the entity before this event. If a top level entity field is not present in this object, then its value has not changed since the prior event.\n",
+      "type": "object",
+      "required": [
+        "page_title",
+        "page_namespace",
+        "rev_id"
+      ],
+      "properties": {
+        "page_title": {
+          "description": "The normalized title of this page before this event.",
+          "type": "string",
+          "minLength": 1
+        },
+        "page_namespace": {
+          "description": "The namespace ID this page belonged to before this event.",
+          "type": "integer"
+        },
+        "rev_id": {
+          "description": "The head revision of this page before this event.",
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "new_redirect_page": {
+      "description": "Information about the new redirect page auto-created at the old title as a result of this page move. This field is optional and will be absent if no redirect page was created.\n",
+      "type": "object",
+      "required": [
+        "page_id",
+        "page_title",
+        "page_namespace",
+        "rev_id"
+      ],
+      "properties": {
+        "page_id": {
+          "description": "The page ID of the newly created redirect page.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_title": {
+          "description": "This will be the same as prior_state.page_title.",
+          "type": "string",
+          "minLength": 1
+        },
+        "page_namespace": {
+          "description": "This will be the same as prior_state.page_namespace.",
+          "type": "integer"
+        },
+        "rev_id": {
+          "description": "The revision created for the newly created redirect page.",
           "type": "integer",
           "minimum": 0
         }
