@@ -1,0 +1,117 @@
+{
+  "title": "mediawiki/job",
+  "description": "Represents a job in Mediawiki JobQueue.",
+  "$id": "/mediawiki/job/1.0.0",
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "$schema",
+    "database",
+    "meta",
+    "type"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "The URI identifying the jsonschema for this event. This should be a short uri containing only the name and revision at the end of the URI path.  e.g. /schema_name/1.0.0 is acceptable. This often will (and should) match the schema's $id field.\n"
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "id",
+        "dt",
+        "stream"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri-reference",
+          "maxLength": 8192,
+          "description": "Unique URI identifying the event / resource"
+        },
+        "request_id": {
+          "type": "string",
+          "description": "Unique ID of the request that caused the event"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$",
+          "maxLength": 36,
+          "description": "Unique ID of this event"
+        },
+        "dt": {
+          "type": "string",
+          "format": "date-time",
+          "maxLength": 128,
+          "description": "Time stamp of the event, in ISO-8601 format"
+        },
+        "domain": {
+          "type": "string",
+          "description": "Domain the event pertains to",
+          "minLength": 1
+        },
+        "stream": {
+          "type": "string",
+          "description": "Name of the stream/queue that this event belongs in",
+          "minLength": 1
+        }
+      }
+    },
+    "database": {
+      "description": "The name of the wiki database this event belongs to.",
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "description": "type of the job",
+      "type": "string"
+    },
+    "page_namespace": {
+      "description": "the namespace of the page that the job was triggered for",
+      "type": "integer"
+    },
+    "page_title": {
+      "description": "the title of the page that the job was triggered for",
+      "type": "string",
+      "minLength": 1
+    },
+    "delay_until": {
+      "description": "don't execute the job until a particular time",
+      "type": "string",
+      "format": "date-time",
+      "maxLength": 128
+    },
+    "sha1": {
+      "description": "unique ID of the job derived from the deduplication info",
+      "type": "string"
+    },
+    "root_event": {
+      "type": "object",
+      "description": "Unique identifier of the root event that triggered this event creation",
+      "required": [
+        "dt",
+        "signature"
+      ],
+      "properties": {
+        "dt": {
+          "description": "the timestamp of the root event, in ISO8601 format",
+          "type": "string",
+          "format": "date-time",
+          "maxLength": 128
+        },
+        "signature": {
+          "type": "string",
+          "description": "the unique signature of root event"
+        }
+      }
+    },
+    "mediawiki_signature": {
+      "description": "The cryptograthic signature of the event baed on MW SecretKey",
+      "type": "string"
+    },
+    "params": {
+      "description": "various parameters speific to a particular job",
+      "type": "object"
+    }
+  }
+}

@@ -1,61 +1,59 @@
 title: mediawiki/api/request
 description: A single request to the MediaWiki Action API (api.php)
 $id: /mediawiki/api/request/0.0.1
-$schema: https://json-schema.org/draft-07/schema#
+$schema: 'https://json-schema.org/draft-07/schema#'
 type: object
+required:
+  - $schema
+  - meta
 properties:
-  # global event fields
   $schema:
     type: string
     description: >
-      The URI identifying the jsonschema for this event. This may be just
-      a short uri containing only the name and revision at the end of the
-      URI path.  e.g. /schema_name/12345 is acceptable. This often will
-      (and should) match the schema's $id field.
+      The URI identifying the jsonschema for this event. This should be a short
+      uri containing only the name and revision at the end of the URI path. 
+      e.g. /schema_name/1.0.0 is acceptable. This often will (and should) match
+      the schema's $id field.
   meta:
     type: object
+    required:
+      - id
+      - dt
+      - stream
     properties:
       uri:
         type: string
         format: uri-reference
         maxLength: 8192
-        description: the unique URI identifying the event / resource
+        description: Unique URI identifying the event / resource
       request_id:
         type: string
-        description: The unique ID of the request that caused the event.
+        description: Unique ID of the request that caused the event
       id:
         type: string
         pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
         maxLength: 36
-        description: the unique ID of this event.
-      # -- ApiAction .ts
+        description: Unique ID of this event
       dt:
         type: string
         format: date-time
         maxLength: 128
-        description: the time stamp of the event, in ISO8601 format
+        description: 'Time stamp of the event, in ISO-8601 format'
       domain:
         type: string
-        description: the domain the event pertains to
+        description: Domain the event pertains to
         minLength: 1
       stream:
         type: string
-        description: The name of the stream/queue that this event belongs in.
+        description: Name of the stream/queue that this event belongs in
         minLength: 1
-    required:
-      - id
-      - dt
-      - domain
-      - stream
-
-  # http request/response info
   http:
     type: object
     description: Information about the HTTP request that generated this event.
     properties:
       method:
         type: string
-        description: The HTTP request method (GET, POST, etc.)
+        description: 'The HTTP request method (GET, POST, etc.)'
       client_ip:
         type: string
         description: The http client's IP address
@@ -64,31 +62,25 @@ properties:
         description: Request headers sent by the client.
         additionalProperties:
           type: string
-
-  # event-specific fields
-
-  # -- ApiAction .wiki
   database:
     type: string
     description: The name of the wiki database this event belongs to.
     minLength: 1
-
   backend_time_ms:
     type: integer
     description: Elapsed milliseconds to process request as measured by MediaWiki
-
   api_error_codes:
     type: array
     description: >
-      List of error codes for any errors encountered, e.g. 'apierror-missingparam'
-      If this field is missing or empty, no errors were encountered.
+      List of error codes for any errors encountered, e.g.
+      'apierror-missingparam' If this field is missing or empty, no errors were
+      encountered.
     items:
       type: string
-
   params:
     type: object
     description: >
-      Request parameters. These might come from http query string,
-      or from the POST body. Sensitive params are redacted.
+      Request parameters. These might come from http query string, or from the
+      POST body. Sensitive params are redacted.
     additionalProperties:
       type: string
