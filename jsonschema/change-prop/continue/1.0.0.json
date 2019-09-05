@@ -1,28 +1,14 @@
 {
-  "title": "test/event",
-  "description": "Schema used for simple tests",
-  "$id": "/test/event/1.0.0",
+  "title": "change-prop/continue",
+  "description": "Represents a continuation request in batch processing",
+  "$id": "/change-prop/continue/1.0.0",
   "$schema": "https://json-schema.org/draft-07/schema#",
   "type": "object",
-  "examples": [
-    {
-      "$schema": "/test/event/1.0.0",
-      "meta": {
-        "stream": "test.event",
-        "id": "12345678-1234-5678-1234-567812345678",
-        "dt": "2019-01-01T00:00:00Z",
-        "domain": "wikimedia.org"
-      },
-      "test": "specific test value",
-      "test_map": {
-        "key1": "val1",
-        "key2": "val2"
-      }
-    }
-  ],
   "required": [
     "$schema",
-    "meta"
+    "continue",
+    "meta",
+    "original_event"
   ],
   "properties": {
     "$schema": {
@@ -71,16 +57,26 @@
         }
       }
     },
-    "test": {
+    "emitter_id": {
       "type": "string",
-      "default": "default value"
+      "description": "identifies the entity that requested a retry"
     },
-    "test_map": {
-      "description": "We want to support 'map' types using additionalProperties to specify the value types.  (Keys are always strings.)\n",
+    "original_event": {
       "type": "object",
-      "additionalProperties": {
-        "type": "string"
-      }
+      "description": "original event that began the batch"
+    },
+    "continue": {
+      "type": "object",
+      "description": "continuation token"
+    },
+    "triggered_by": {
+      "type": "string",
+      "description": "comma-separated list of event descriptions in `<topic>:<uri>` format, that represent a chain of events that caused this event to be emitted.\n"
+    },
+    "sequence_num": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of this continuation event in the current sequence."
     }
   }
 }

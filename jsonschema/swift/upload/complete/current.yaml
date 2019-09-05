@@ -4,40 +4,36 @@ $id: /swift/upload/complete/1.0.0
 $schema: https://json-schema.org/draft-07/schema#
 type: object
 additionalProperties: false
-properties:
-  $ref: /common/1.0.0#/properties
+allOf:
+  - $ref: /common/1.0.0
+  - properties:
+      upload_user:
+        description: User that initiated the upload
+        type: string
 
-  # event-specific fields
+      swift_user:
+        description: Swift account user, e.g. analytics:admin
+        type: string
 
-  upload_user:
-    description: User that initiated the upload
-    type: string
+      swift_container:
+        description: Swift container in which files were uploaded
+        type: string
 
-  swift_user:
-    description: Swift account user, e.g. analytics:admin
-    type: string
+      swift_object_prefix:
+        description: Swift object prefix / object name used when uploading
+        type: string
 
-  swift_container:
-    description: Swift container in which files were uploaded
-    type: string
-
-  swift_object_prefix:
-    description: Swift object prefix / object name used when uploading
-    type: string
-
-  swift_prefix_uri:
-    description: >
-      Swift API URI which should be requested in order to get the list of objects for this
-      upload complete event.  In the case where this event represents a full directory upload
-      is complete, the URI will have ?prefix=<swift_object_prefix>.  In the case that this
-      event only represents a single object from a larger directory upload, this will
-      have ?prefix=<swift_object_prefix>/<full_path_to_object>.  In either case,
-      requesting this URI will get you a list of objects relevant to this event.
-    type: string
+      swift_prefix_uri:
+        description: >
+          Swift API URI which should be requested in order to get the list of objects for this
+          upload complete event.  In the case where this event represents a full directory upload
+          is complete, the URI will have ?prefix=<swift_object_prefix>.  In the case that this
+          event only represents a single object from a larger directory upload, this will
+          have ?prefix=<swift_object_prefix>/<full_path_to_object>.  In either case,
+          requesting this URI will get you a list of objects relevant to this event.
+        type: string
 
 required:
-  - $schema
-  - meta
   - swift_user
   - swift_container
   - swift_object_prefix

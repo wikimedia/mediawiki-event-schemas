@@ -1,28 +1,15 @@
 {
-  "title": "test/event",
-  "description": "Schema used for simple tests",
-  "$id": "/test/event/1.0.0",
+  "title": "change-prop/retry",
+  "description": "Represents a failure in event processing and a request to retry it",
+  "$id": "/change-prop/retry/1.0.0",
   "$schema": "https://json-schema.org/draft-07/schema#",
   "type": "object",
-  "examples": [
-    {
-      "$schema": "/test/event/1.0.0",
-      "meta": {
-        "stream": "test.event",
-        "id": "12345678-1234-5678-1234-567812345678",
-        "dt": "2019-01-01T00:00:00Z",
-        "domain": "wikimedia.org"
-      },
-      "test": "specific test value",
-      "test_map": {
-        "key1": "val1",
-        "key2": "val2"
-      }
-    }
-  ],
   "required": [
     "$schema",
-    "meta"
+    "emitter_id",
+    "meta",
+    "original_event",
+    "retries_left"
   ],
   "properties": {
     "$schema": {
@@ -71,16 +58,25 @@
         }
       }
     },
-    "test": {
+    "emitter_id": {
       "type": "string",
-      "default": "default value"
+      "description": "identifies the entity that requested a retry"
     },
-    "test_map": {
-      "description": "We want to support 'map' types using additionalProperties to specify the value types.  (Keys are always strings.)\n",
+    "retries_left": {
+      "type": "integer",
+      "description": "number of retry attempts left for this event"
+    },
+    "original_event": {
       "type": "object",
-      "additionalProperties": {
-        "type": "string"
-      }
+      "description": "original event that caused a failure"
+    },
+    "reason": {
+      "type": "string",
+      "description": "message describing the reason of the retry"
+    },
+    "triggered_by": {
+      "type": "string",
+      "description": "comma-separated list of event descriptions in `<topic>:<uri>` format, that represent a chain of events that caused this event to be emitted.\n"
     }
   }
 }

@@ -5,27 +5,30 @@
   "$schema": "https://json-schema.org/draft-07/schema#",
   "type": "object",
   "additionalProperties": false,
+  "required": [
+    "$schema",
+    "meta",
+    "swift_container",
+    "swift_object_prefix",
+    "swift_prefix_uri",
+    "swift_user"
+  ],
+  "examples": [
+    {
+      "$schema": "/swift/upload/complete/1.0.0",
+      "meta": {
+        "dt": "2019-07-29T20:12:46.813554Z",
+        "id": "9d27895c-da78-4e4f-b968-66622e2b02cd",
+        "stream": "swift.example_container.upload-complete"
+      },
+      "swift_container": "example_container",
+      "swift_object_prefix": "2019-07-29T20:12:46.813554Z/example_prefix",
+      "swift_prefix_uri": "https://ms-fe.svc.eqiad.wmnet/v1/AUTH_analytics/example_container?prefix=2019-07-29T20:12:46.813554Z/example_prefix",
+      "swift_user": "analytics:admin",
+      "upload_user": "example_user"
+    }
+  ],
   "properties": {
-    "upload_user": {
-      "description": "User that initiated the upload",
-      "type": "string"
-    },
-    "swift_user": {
-      "description": "Swift account user, e.g. analytics:admin",
-      "type": "string"
-    },
-    "swift_container": {
-      "description": "Swift container in which files were uploaded",
-      "type": "string"
-    },
-    "swift_object_prefix": {
-      "description": "Swift object prefix / object name used when uploading",
-      "type": "string"
-    },
-    "swift_prefix_uri": {
-      "description": "Swift API URI which should be requested in order to get the list of objects for this upload complete event.  In the case where this event represents a full directory upload is complete, the URI will have ?prefix=<swift_object_prefix>.  In the case that this event only represents a single object from a larger directory upload, this will have ?prefix=<swift_object_prefix>/<full_path_to_object>.  In either case, requesting this URI will get you a list of objects relevant to this event.\n",
-      "type": "string"
-    },
     "$schema": {
       "type": "string",
       "description": "The URI identifying the jsonschema for this event. This should be a short uri containing only the name and revision at the end of the URI path.  e.g. /schema_name/1.0.0 is acceptable. This often will (and should) match the schema's $id field.\n"
@@ -71,29 +74,26 @@
           "minLength": 1
         }
       }
+    },
+    "upload_user": {
+      "description": "User that initiated the upload",
+      "type": "string"
+    },
+    "swift_user": {
+      "description": "Swift account user, e.g. analytics:admin",
+      "type": "string"
+    },
+    "swift_container": {
+      "description": "Swift container in which files were uploaded",
+      "type": "string"
+    },
+    "swift_object_prefix": {
+      "description": "Swift object prefix / object name used when uploading",
+      "type": "string"
+    },
+    "swift_prefix_uri": {
+      "description": "Swift API URI which should be requested in order to get the list of objects for this upload complete event.  In the case where this event represents a full directory upload is complete, the URI will have ?prefix=<swift_object_prefix>.  In the case that this event only represents a single object from a larger directory upload, this will have ?prefix=<swift_object_prefix>/<full_path_to_object>.  In either case, requesting this URI will get you a list of objects relevant to this event.\n",
+      "type": "string"
     }
-  },
-  "required": [
-    "$schema",
-    "meta",
-    "swift_user",
-    "swift_container",
-    "swift_object_prefix",
-    "swift_prefix_uri"
-  ],
-  "examples": [
-    {
-      "$schema": "/swift/upload/complete/1.0.0",
-      "meta": {
-        "dt": "2019-07-29T20:12:46.813554Z",
-        "id": "9d27895c-da78-4e4f-b968-66622e2b02cd",
-        "stream": "swift.example_container.upload-complete"
-      },
-      "swift_container": "example_container",
-      "swift_object_prefix": "2019-07-29T20:12:46.813554Z/example_prefix",
-      "swift_prefix_uri": "https://ms-fe.svc.eqiad.wmnet/v1/AUTH_analytics/example_container?prefix=2019-07-29T20:12:46.813554Z/example_prefix",
-      "swift_user": "analytics:admin",
-      "upload_user": "example_user"
-    }
-  ]
+  }
 }

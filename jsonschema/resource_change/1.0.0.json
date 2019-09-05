@@ -1,25 +1,9 @@
 {
-  "title": "test/event",
-  "description": "Schema used for simple tests",
-  "$id": "/test/event/1.0.0",
+  "title": "resource_change",
+  "description": "Represents a change in a resource tied to the specified URI",
+  "$id": "/resource_change/1.0.0",
   "$schema": "https://json-schema.org/draft-07/schema#",
   "type": "object",
-  "examples": [
-    {
-      "$schema": "/test/event/1.0.0",
-      "meta": {
-        "stream": "test.event",
-        "id": "12345678-1234-5678-1234-567812345678",
-        "dt": "2019-01-01T00:00:00Z",
-        "domain": "wikimedia.org"
-      },
-      "test": "specific test value",
-      "test_map": {
-        "key1": "val1",
-        "key2": "val2"
-      }
-    }
-  ],
   "required": [
     "$schema",
     "meta"
@@ -71,15 +55,36 @@
         }
       }
     },
-    "test": {
-      "type": "string",
-      "default": "default value"
-    },
-    "test_map": {
-      "description": "We want to support 'map' types using additionalProperties to specify the value types.  (Keys are always strings.)\n",
-      "type": "object",
-      "additionalProperties": {
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "the list of tags associated with the change event for the resource",
+      "items": {
         "type": "string"
+      }
+    },
+    "triggered_by": {
+      "type": "string",
+      "description": "comma-separated list of event descriptions in `<topic>:<uri>` format, that represent a chain of events that caused this event to be emitted.\n"
+    },
+    "root_event": {
+      "type": "object",
+      "description": "Unique identifier of the root event that triggered this event creation",
+      "required": [
+        "dt",
+        "signature"
+      ],
+      "properties": {
+        "dt": {
+          "description": "the timestamp of the root event, in ISO-8601 format",
+          "type": "string",
+          "format": "date-time",
+          "maxLength": 128
+        },
+        "signature": {
+          "type": "string",
+          "description": "the unique signature of root event"
+        }
       }
     }
   }
