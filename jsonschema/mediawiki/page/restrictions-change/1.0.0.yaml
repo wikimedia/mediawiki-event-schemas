@@ -1,7 +1,7 @@
 title: mediawiki/page/restrictions-change
 description: Represents a MW Page Restrictions Change event.
 $id: /mediawiki/page/restrictions-change/1.0.0
-$schema: 'http://json-schema.org/draft-04/schema#'
+$schema: 'https://json-schema.org/draft-07/schema#'
 type: object
 required:
   - $schema

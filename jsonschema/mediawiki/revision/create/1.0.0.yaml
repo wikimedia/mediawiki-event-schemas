@@ -111,6 +111,12 @@ properties:
   page_namespace:
     description: The namespace of the page this revision belongs to.
     type: integer
+  page_is_redirect:
+    description: >
+      True if this revision is a redirect.  This fact is ultimately represented
+      by revision content containing redirect wikitext.  If this revision is the
+      head revision of the page, then the page will also be a redirect.
+    type: boolean
   rev_id:
     description: The revision ID created by this event
     type: integer
@@ -152,9 +158,3 @@ properties:
   rev_content_format:
     description: The content format of the revision.
     type: string
-  page_is_redirect:
-    description: >
-      True if this revision is a redirect.  This fact is ultimately represented
-      by revision content containing redirect wikitext.  If this revision is the
-      head revision of the page, then the page will also be a redirect.
-    type: boolean

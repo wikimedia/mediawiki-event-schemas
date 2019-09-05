@@ -124,6 +124,10 @@
       "description": "The namespace of the page this revision belongs to.",
       "type": "integer"
     },
+    "page_is_redirect": {
+      "description": "True if this revision is a redirect.  This fact is ultimately represented by revision content containing redirect wikitext.  If this revision is the head revision of the page, then the page will also be a redirect.\n",
+      "type": "boolean"
+    },
     "rev_id": {
       "description": "The revision ID created by this event",
       "type": "integer",
@@ -171,10 +175,6 @@
     "rev_content_format": {
       "description": "The content format of the revision.",
       "type": "string"
-    },
-    "page_is_redirect": {
-      "description": "True if this revision is a redirect.  This fact is ultimately represented by revision content containing redirect wikitext.  If this revision is the head revision of the page, then the page will also be a redirect.\n",
-      "type": "boolean"
     },
     "tags": {
       "description": "The list of tags after the event has happened. If the tags field is not present, the revision has no tags after the event has happened.\n",
