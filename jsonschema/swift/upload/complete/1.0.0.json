@@ -46,7 +46,7 @@
         },
         "request_id": {
           "type": "string",
-          "description": "Unique ID of the request that caused the event="
+          "description": "Unique ID of the request that caused the event"
         },
         "id": {
           "type": "string",
