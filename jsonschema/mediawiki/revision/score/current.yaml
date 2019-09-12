@@ -1,6 +1,6 @@
 title: mediawiki/revision/score
 description: Represents a MW Revision Score event (from ORES).
-$id: /mediawiki/revision/score/1.0.0
+$id: /mediawiki/revision/score/2.0.0
 $schema: https://json-schema.org/draft-07/schema#
 type: object
 allOf:
@@ -10,19 +10,21 @@ allOf:
   - properties:
       scores:
         description: >
-          List of ORES score objects. Each model here was used to score this revision.  Example:
+          List of ORES score objects. Each model uses the model name as a map key and was used to score this revision.  Example:
           {
-            "model_name": "awesomeness",
-            "model_version": "1.0.1",
-            "prediction": ["yes", "mostly"],
-            "probability": [
-              {"name": "yes",    "value": 0.99},
-              {"name": "mostly", "value": 0.90},
-              {"name": "hardly", "value": 0.01}
-            ]
+            "awesomeness": {
+              "model_name": "awesomeness"
+              "model_version": "1.0.1",
+              "prediction": ["yes", "mostly"],
+              "probability": {
+                "yes": 0.99,
+                "mostly": 0.90,
+                "hardly": 0.01
+              }
+            }
           }
-        type: array
-        items:
+        type: object
+        additionalProperties:
           type: object
           properties:
             model_name:
@@ -39,18 +41,10 @@ allOf:
             probability:
               description: >
                 A list of probabilities made by this model.
-                Each element is an object with a probability 'name' and a probability 'value'.
-              type: array
-              items:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  value:
-                    type: number
-                required:
-                  - name
-                  - value
+                Each element is a key/value with a probability name and a probability value.
+              type: object
+              additionalProperties:
+                type: number
           required:
             - model_name
             - model_version
@@ -58,9 +52,9 @@ allOf:
             - probability
 
       errors:
-        description: Errors that occured when models attempted to score this revision.
-        type: array
-        items:
+        description: Errors that occured when models attempted to score this revision. Each error uses the model name as a map key.
+        type: object
+        additionalProperties:
           type: object
           properties:
             model_name:
@@ -80,4 +74,3 @@ allOf:
             - model_version
             - type
             - message
-
