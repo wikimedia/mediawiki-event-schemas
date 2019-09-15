@@ -1,0 +1,92 @@
+{
+  "title": "client/error",
+  "description": "An error generated in a client runtime",
+  "$id": "/client/error/1.0.0",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "$schema",
+    "message",
+    "meta",
+    "type",
+    "url",
+    "user_agent"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "A URI identifying the JSONSchema for this event. This should match an schema's $id in a schema repository. E.g. /schema_name/1.0.0\n"
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "id",
+        "dt",
+        "stream"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri-reference",
+          "maxLength": 8192,
+          "description": "Unique URI identifying the event or entity"
+        },
+        "request_id": {
+          "type": "string",
+          "description": "Unique ID of the request that caused the event"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$",
+          "maxLength": 36,
+          "description": "Unique ID of this event"
+        },
+        "dt": {
+          "type": "string",
+          "format": "date-time",
+          "maxLength": 128,
+          "description": "Event datetime, in ISO-8601 format"
+        },
+        "domain": {
+          "type": "string",
+          "description": "Domain the event or entity pertains to",
+          "minLength": 1
+        },
+        "stream": {
+          "type": "string",
+          "description": "Name of the stream/queue/dataset that this event belongs in",
+          "minLength": 1
+        }
+      }
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of error raised, e.g. an exception class."
+    },
+    "message": {
+      "type": "string",
+      "description": "A message explaining what happened."
+    },
+    "url": {
+      "type": "string",
+      "description": "URL of the resource where the error was raised."
+    },
+    "user_agent": {
+      "type": "string",
+      "maxLength": 800,
+      "description": "Client user agent string."
+    },
+    "stack_trace": {
+      "type": "string",
+      "description": "Stack trace string."
+    },
+    "tags": {
+      "type": "object",
+      "maxProperties": 32,
+      "description": "Arbitrary extra data. Typically includes:\n- version: MediaWiki branch name\n- wiki: wiki ID\n- skin: skin name\n- user_language: user language\n- action: action (e.g. view, edit)\n- namespace: namespace where the error occured\n- page_title: title of page where the error occured\n- user_groups: comma-separated list of user groups\n- debug: truthy when ResourceLoader debug mode was enabled\n",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}
