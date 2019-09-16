@@ -23,9 +23,9 @@ describe('conventions', () => {
                     it('must be valid JSON-Schema', () => {
                         if (!isSchemaValid(schema)) {
                             throw new assert.AssertionError({
-                                message: 'Schema insecure errors',
+                                message: 'Schema is invalid',
                                 expected: [],
-                                actual: isSchemaSecure.errors
+                                actual: isSchemaValid.errors
                             });
                         }
                     });
