@@ -4,17 +4,12 @@
     "lint": "eslint --max-warnings 0 --ext .js,.json ./jsonschema ./test",
     "test": "npm run lint && mocha",
     "postinstall": "npm run install-jsonschema-tools-hook",
-    "install-jsonschema-tools-hook": "$(npm bin)/jsonschema-tools install-git-hook -v -c yaml,json -u ./jsonschema/"
+    "install-jsonschema-tools-hook": "$(npm bin)/jsonschema-tools install-git-hook"
   },
   "devDependencies": {
-    "@wikimedia/jsonschema-tools": "^0.2.1",
-    "mocha": "^6.2.0",
-    "ajv": "^6.10.2",
-    "file": "^0.2.2",
-    "js-yaml": "^3.13.1",
-    "preq": "^0.5.11",
-    "semver": "^6.3.0",
+    "@wikimedia/jsonschema-tools": "^0.5.0",
     "eslint": "^6.3.0",
-    "eslint-config-wikimedia": "^0.14.1"
+    "eslint-config-wikimedia": "^0.14.1",
+    "mocha": "^6.2.0"
   }
 }

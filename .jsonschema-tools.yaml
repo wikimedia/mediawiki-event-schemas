@@ -1,0 +1,4 @@
+schemaBasePath: ./jsonschema/
+logLevel: info
+ignoreSchemas:
+- /mediawiki/recentchange/1.0.0
