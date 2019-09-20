@@ -31,12 +31,12 @@ allOf:
         type: boolean
 
       rev_id:
-        description: The revision ID created by this event
+        description: The (database) revision ID.
         type: integer
         minimum: 0
 
       rev_parent_id:
-        description: The parent revision of the revision that this event affects.
+        description: The parent revison ID of the revision that this event represents.
         type: integer
         minimum: 0
 

@@ -8,10 +8,9 @@ properties:
   $schema:
     type: string
     description: >
-      The URI identifying the jsonschema for this event. This should be
-      a short uri containing only the name and revision at the end of the
-      URI path.  e.g. /schema_name/1.0.0 is acceptable. This often will
-      (and should) match the schema's $id field.
+      A URI identifying the JSONSchema for this event. This should
+      match an schema's $id in a schema repository.
+      E.g. /schema_name/1.0.0
 
   ### Meta data object.  All events schemas should have this.
   meta:
@@ -21,7 +20,7 @@ properties:
         type: string
         format: uri-reference
         maxLength: 8192
-        description: Unique URI identifying the event / resource
+        description: Unique URI identifying the event or entity
       request_id:
         type: string
         description: Unique ID of the request that caused the event
@@ -34,14 +33,14 @@ properties:
         type: string
         format: date-time
         maxLength: 128
-        description: Time stamp of the event, in ISO-8601 format
+        description: Event datetime, in ISO-8601 format
       domain:
         type: string
-        description: Domain the event pertains to
+        description: Domain the event or entity pertains to
         minLength: 1
       stream:
         type: string
-        description: Name of the stream/queue that this event belongs in
+        description: Name of the stream/queue/dataset that this event belongs in
         minLength: 1
     required:
       - id

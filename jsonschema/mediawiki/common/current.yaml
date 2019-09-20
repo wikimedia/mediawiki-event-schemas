@@ -11,7 +11,7 @@ allOf:
     ### Mediawiki entity fields.
   - properties:
       database:
-        description: The name of the wiki database this event belongs to.
+        description: The name of the wiki database this event entity belongs to.
         type: string
         minLength: 1
 
@@ -36,9 +36,9 @@ allOf:
               minLength: 1
           user_is_bot:
             description: >
-              True if this user is considered to be a bot.  This is checked
-              via the $user->isBot() method, which considers both user_groups
-              and user permissions.
+              True if this user is considered to be a bot at the time of this event.
+              This is checked via the $user->isBot() method, which considers both
+              user_groups and user permissions.
             type: boolean
           user_registration_dt:
             description: >
@@ -49,7 +49,7 @@ allOf:
             maxLength: 128
           user_edit_count:
             description: >
-              The number of edits this user has made at the time this revision is created.
+              The number of edits this user has made at the time of this event.
               Not present for anonymous users.
             type: integer
             minimum: 0
