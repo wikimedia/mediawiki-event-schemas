@@ -1,0 +1,99 @@
+title: sparql/query
+description: >
+  A sparql query received on the triplet store backends (e.g.
+  query.wikidata.org)
+$id: /sparql/query/1.0.0
+$schema: 'https://json-schema.org/draft-07/schema#'
+type: object
+additionalProperties: false
+required:
+  - $schema
+  - backend_host
+  - http
+  - meta
+  - namespace
+  - query
+properties:
+  $schema:
+    type: string
+    description: >
+      A URI identifying the JSONSchema for this event. This should match an
+      schema's $id in a schema repository. E.g. /schema_name/1.0.0
+  meta:
+    type: object
+    required:
+      - id
+      - dt
+      - stream
+    properties:
+      uri:
+        type: string
+        format: uri-reference
+        maxLength: 8192
+        description: Unique URI identifying the event or entity
+      request_id:
+        type: string
+        description: Unique ID of the request that caused the event
+      id:
+        type: string
+        pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
+        maxLength: 36
+        description: Unique ID of this event
+      dt:
+        type: string
+        format: date-time
+        maxLength: 128
+        description: 'Event datetime, in ISO-8601 format'
+      domain:
+        type: string
+        description: Domain the event or entity pertains to
+        minLength: 1
+      stream:
+        type: string
+        description: Name of the stream/queue/dataset that this event belongs in
+        minLength: 1
+  http:
+    type: object
+    description: Information about the HTTP request that generated an event.
+    properties:
+      method:
+        type: string
+        description: 'The HTTP request method (GET, POST, etc.)'
+      client_ip:
+        type: string
+        description: The HTTP client's IP address
+      request_headers:
+        type: object
+        description: Request headers sent by the client.
+        additionalProperties:
+          type: string
+      has_cookies:
+        type: boolean
+        description: True if the HTTP request has any cookies set
+      status_code:
+        type: integer
+        description: The HTTP status code returned for this request (when known)
+  backend_host:
+    type: string
+    description: Hostname of sparql endpoint (blazegraph) server handling this sparql query
+  namespace:
+    type: string
+    description: |
+      Name of the database being requested
+  query:
+    type: string
+    description: sparql query received
+  query_time:
+    type: integer
+    description: query time
+  format:
+    type: string
+    description: the format requested (overrides the Accept header if set)
+  params:
+    type: object
+    description: >
+      Request parameters. Usually from the HTTP query string or in the request
+      body if the POST method is used. Note that the query and format params are
+      not duplicated in this property.
+    additionalProperties:
+      type: string

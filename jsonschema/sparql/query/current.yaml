@@ -1,0 +1,63 @@
+title: sparql/query
+description: >
+  A sparql query received on the triplet store backends (e.g. query.wikidata.org)
+$id: /sparql/query/1.0.0
+$schema: https://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+allOf:
+  - $ref: /common/1.0.0
+  - properties:
+      http:
+        # TODO: extract and reuse an http property type
+        type: object
+        description: Information about the HTTP request that generated an event.
+        properties:
+          method:
+            type: string
+            description: 'The HTTP request method (GET, POST, etc.)'
+          client_ip:
+            type: string
+            description: The HTTP client's IP address
+          request_headers:
+            type: object
+            description: Request headers sent by the client.
+            additionalProperties:
+              type: string
+          has_cookies:
+            type: boolean
+            description: True if the HTTP request has any cookies set
+          status_code:
+            type: integer
+            description: The HTTP status code returned for this request (when known)
+
+      backend_host:
+        type: string
+        description: Hostname of sparql endpoint (blazegraph) server handling this sparql query
+      namespace:
+        type: string
+        description: |
+          Name of the database being requested
+      query:
+        type: string
+        description: sparql query received
+      query_time:
+        type: integer
+        description: query time
+      format:
+        type: string
+        description: the format requested (overrides the Accept header if set)
+      params:
+        type: object
+        description: >
+          Request parameters. Usually from the HTTP query string or in the request
+          body if the POST method is used. Note that the query and format params are
+          not duplicated in this property.
+        additionalProperties:
+          type: string
+
+    required:
+      - http
+      - backend_host
+      - namespace
+      - query
