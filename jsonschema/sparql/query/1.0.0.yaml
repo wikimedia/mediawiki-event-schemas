@@ -67,6 +67,11 @@ properties:
         description: Request headers sent by the client.
         additionalProperties:
           type: string
+      response_headers:
+        type: object
+        description: Response headers sent back to the client (when known).
+        additionalProperties:
+          type: string
       has_cookies:
         type: boolean
         description: True if the HTTP request has any cookies set
