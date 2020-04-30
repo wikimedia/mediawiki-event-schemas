@@ -1,3 +1,13 @@
+# DEPRECATED
+
+This repository has been replaced by 2 other schema repositories:
+
+https://gerrit.wikimedia.org/r/admin/projects/schemas/event/primary
+https://gerrit.wikimedia.org/r/admin/projects/schemas/event/secondary
+
+
+
+
 # mediawiki/event-schemas
 
 This is a repository of event schemas for use with Mediawiki and other related services
